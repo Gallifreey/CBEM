@@ -42,21 +42,24 @@
          </a-row>
        </a-form>
      </template>
-     <a-table :columns="VendorOrderColumn" :data-source="data" :row-selection="rowSelection" :scroll="{ x: 1200}">
+     <a-table :columns="VendorOrderColumn" :data-source="data" :row-selection="rowSelection" :scroll="{ x: 1300}">
        <template #bodyCell="{record, column}">
          <template v-if="column.dataIndex === 'state'">
             <ColorfulTag :text="ORDER_STATUS_ARRAY[record.state]" :number="record.state"/>
          </template>
          <template v-if="column.dataIndex === 'action'">
            <a-space>
-             <a @click="open = true">预览</a>
-             <a>修改</a>
+             <a @click="openHandler.open1 = true">预览</a>
+             <a @click="openHandler.open2 = true">清单</a>
+             <a @click="openHandler.open3 = true">修改</a>
              <a>删除</a>
            </a-space>
          </template>
        </template>
      </a-table>
-     <OrderDrawer v-model:open="open"/>
+     <OrderModal v-model:open="openHandler.open1" />
+     <OrderBOM v-model:open="openHandler.open2" />
+     <OrderModify v-model:open="openHandler.open3" />
    </page-container>
  </template>
  <script lang="ts" setup>
@@ -66,7 +69,9 @@
  import dayjs from 'dayjs';
  import ColorfulTag from '~@/components/utils/ColorfulTag.vue';
  import { ORDER_STATUS_ARRAY } from '~@/utils/constant'
- import OrderDrawer from '../components/OrderDrawer.vue'
+ import OrderModal from '../components/OrderModal.vue'
+ import OrderBOM from '../components/OrderBOM.vue'
+ import OrderModify from '../components/OrderModify.vue'
 
  interface FormState {
    source: string,
@@ -80,7 +85,11 @@
    deliveyState: "",
    publishTime: [dayjs("2015/01/01"), dayjs("2015/01/01")],
  })
- const open = ref(false);
+ const openHandler = ref({
+  open1: false,
+  open2: false,
+  open3: false
+ })
  const data = shallowRef<VendorOrderColumnType[]>([
    {
      key: 1,
@@ -101,7 +110,8 @@
      state: 1
    }
  ])
- const rowSelection = useAntRowSelection<VendorOrderColumnType>();
+ const rowSelectedKeys = ref([])
+ const rowSelection = useAntRowSelection<VendorOrderColumnType>(rowSelectedKeys);
  </script>
  <style lang="less" scoped>
  

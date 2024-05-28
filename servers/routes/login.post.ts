@@ -14,10 +14,13 @@ export default eventHandler(async (event) => {
     if (body.username === 'admin' && body.password === 'admin')
       return success
 
-    if (body.username === 'user' && body.password === 'user')
+    if (body.username === 'vendor' && body.password === 'vendor')
       return success
 
-    if (body.username === 'vendor' && body.password === 'vendor')
+    if (body.username === 'saler' && body.password === 'saler')
+      return success
+
+    if (body.username === 'storage_manager' && body.password === 'storage_manager')
       return success
   }
   else {

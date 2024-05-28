@@ -15,7 +15,7 @@ export default eventHandler((event) => {
       username,
       nickname: username,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-      roles: ['VENDOR']//username === 'admin' ? ['ADMIN'] : ['USER'],
+      roles: [username.toUpperCase()]//username === 'admin' ? ['ADMIN'] : ['USER'],
     },
   }
 })

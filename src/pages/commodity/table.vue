@@ -35,6 +35,11 @@
         <a-row>
           <a-space>
             <a-form-item>
+              <a-button :disabled="rowSelectedKeys.length === 0">
+                删除 - 选中{{ rowSelectedKeys.length }} 个项目
+              </a-button>
+            </a-form-item>
+            <a-form-item>
               <a-button html-type="submit">添加新的商品</a-button>
             </a-form-item>
             <a-form-item>
@@ -51,9 +56,12 @@
         </template>
         <template v-if="column.dataIndex === 'action'">
           <a-space>
+            <a>上架</a>
             <a @click="drawerOpen = true">审阅</a>
             <a>修改</a>
-            <a>删除</a>
+            <a-popconfirm title="确认删除所选商品">
+              <a>删除</a>
+            </a-popconfirm>
           </a-space>
         </template>
       </template>
@@ -125,7 +133,8 @@ onMounted(() => {
     })
   })
 })
-const rowSelection = useAntRowSelection<CommdityColumnType>();
+const rowSelectedKeys = ref<(String | Number)[]>([]);
+const rowSelection = useAntRowSelection<CommdityColumnType>(rowSelectedKeys);
 </script>
 <style lang="less" scoped>
 

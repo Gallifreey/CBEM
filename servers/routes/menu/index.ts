@@ -196,6 +196,126 @@ export const vendorAccessMenuData = [
   }
 ]
 
+export const salerAccessMenuData = [
+  {
+    id: 100,
+    parentId: null,
+    title: '商品库',
+    icon: 'CodepenOutlined',
+    component: 'RouteView',
+    redirect: '/commodity/list',
+    path: '/commodity',
+    name: 'Commodity',
+    locale: '商品库',
+  },
+  {
+    id: 101,
+    parentId: 100,
+    title: '商品列表',
+    component: '/commodity/table',
+    path: '/commodity/list',
+    name: 'CommodityIndex',
+    locale: '商品列表',
+  },
+  {
+    id: 102,
+    parentId: 100,
+    title: '商品新增',
+    component: '/commodity/form',
+    path: '/commodity/form',
+    name: 'CommodityForm',
+    locale: '商品新增',
+  },
+  {
+    id: 303,
+    parentId: 300,
+    title: '退换货',
+    component: '/order/RAE',
+    path: '/order/RAE',
+    name: 'OrderRAE',
+    locale: '退换货',
+  },
+  {
+    id: 500,
+    parentId: null,
+    title: '数据分析与统计',
+    icon: 'CodepenOutlined',
+    component: 'RouteView',
+    redirect: '/statistics/BusinessOverview',
+    path: '/statistics',
+    name: 'Statistics',
+    locale: '数据分析与统计',
+  },
+  {
+    id: 501,
+    parentId: 500,
+    title: '经营总览',
+    component: '/statistics/saler/BusinessOverview',
+    path: '/statistics/saler/BusinessOverview',
+    name: 'StatisticsSalerBusinessOverview',
+    locale: '经营总览',
+  },
+  {
+    id: 502,
+    parentId: 500,
+    title: '商品分析',
+    component: '/statistics/saler/CommodityAnalyze',
+    path: '/statistics/saler/CommodityAnalyze',
+    name: 'StatisticsSalerCommodityAnalyze',
+    locale: '商品分析',
+  }
+]
+
+export const storageAccessMenuData = [
+  {
+    id: 600,
+    parentId: null,
+    title: '仓库管理',
+    icon: 'CodepenOutlined',
+    component: 'RouteView',
+    redirect: '/storage_manager/list',
+    path: '/storage_manager',
+    name: 'StorageManager',
+    locale: '仓库管理',
+  },
+  {
+    id: 601,
+    parentId: 600,
+    title: '仓库管理',
+    component: '/storage/storage_manager/list',
+    path: '/storage_manager/list',
+    name: 'StorageManagerList',
+    locale: '仓库管理',
+  },
+  {
+    id: 602,
+    parentId: 600,
+    title: '出入库管理',
+    component: '/storage/storage_manager/io',
+    path: '/storage_manager/io',
+    name: 'StorageManagerIO',
+    locale: '出入库管理',
+  },
+  {
+    id: 603,
+    parentId: 600,
+    title: '品牌授权',
+    component: '/storage/storage_manager/brand_auth',
+    path: '/storage_manager/brand_auth',
+    name: 'StorageManagerBrandAuth',
+    locale: '品牌授权',
+  },
+  {
+    id: 604,
+    parentId: 600,
+    title: '库存管理',
+    component: '/storage/storage_manager/storage',
+    path: '/storage_manager/storage',
+    name: 'StorageManagerBrandStorage',
+    locale: '库存管理',
+  }
+]
+
 export const accessMenuData = [
   {
     id: 18,
@@ -208,10 +328,10 @@ export const accessMenuData = [
   }
 ]
 
-const RouteMap = new Map<String, Object[]>([
+const RouteMap = new Map<String, Array<Object>>([
   ['VENDOR', vendorAccessMenuData],
-  ['SALER', vendorAccessMenuData],
-  ['STORAGE_MANAGER', vendorAccessMenuData],
+  ['SALER', salerAccessMenuData],
+  ['STORAGE_MANAGER', storageAccessMenuData],
   ['ADMIN', vendorAccessMenuData]
 ])
 
@@ -221,6 +341,6 @@ export default eventHandler((event: any) => {
   return {
     code: 200,
     msg: '获取成功',
-    data: [...menuData.slice(0, menuData.length-3), ...(username === 'admin' ? vendorAccessMenuData : []), ...menuData.slice(menuData.length-3)],
+    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(username.toUpperCase()), ...menuData.slice(menuData.length-3)],
   }
 })
