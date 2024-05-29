@@ -1,5 +1,5 @@
 import { TableColumnType } from "ant-design-vue";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 // Vendor Commodity Table
 export type CommdityColumnType = {
@@ -174,7 +174,7 @@ export const VendorOrderColumn: TableColumnType<VendorOrderColumnType>[] = [
         dataIndex: 'action',
         title: '操作',
         align: 'center',
-        width: 200,
+        width: 250,
         fixed: 'right'
     }
 ]
@@ -423,5 +423,98 @@ export const StorageManagerIOColumn: TableColumnType<StorageManagerIOType>[] = [
         align: 'center',
         fixed: 'right',
         width: 200,
+    }
+]
+
+// storage manager brand table
+export type StorageManagerBrandType = {
+    key?: number,
+    name: string,
+    authTime: Dayjs,
+}
+
+export const StorageManagerBrandColumn: TableColumnType<StorageManagerBrandType>[] = [
+    {
+        dataIndex: 'name',
+        title: '品牌名称',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'authTime',
+        title: '授权时间',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'action',
+        title: '操作',
+        align: 'center',
+        width: 200
+    }
+]
+
+// storage manager storage table
+export type StorageManagerStorageType = {
+    key?: number,
+    name: string,
+    brand: string,
+    description: string,
+    remained: number,
+    publishTime: Dayjs,
+    picture: string,
+    price: number,
+}
+
+export const StorageManagerStorageColumn: TableColumnType<StorageManagerStorageType>[] = [
+    {
+        dataIndex: 'name',
+        title: '商品名称',
+        align: 'center',
+        width: 200,
+        fixed: 'left'
+    },
+    {
+        dataIndex: 'brand',
+        title: '商品品牌',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'description',
+        title: '商品描述',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'price',
+        title: '商品价格',
+        align: 'center',
+        width: 150
+    },
+    {
+        dataIndex: 'remained',
+        title: '库存剩余',
+        align: 'center',
+        width: 100
+    },
+    {
+        dataIndex: 'publishTime',
+        title: '发布时间',
+        align: 'center',
+        width: 150
+    },
+    {
+        dataIndex: 'picture',
+        title: '缩略图',
+        align: 'center',
+        width: 150
+    },
+    {
+        dataIndex: 'action',
+        title: '操作',
+        align: 'center',
+        width: 150,
+        fixed: 'right'
     }
 ]

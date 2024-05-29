@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <a-input v-if="props.type === 'input'" class="t-input" v-model:value="valueE" :style="{width: props.width}" />
-    <a-textarea v-else show-count :rows="4" :bordered="false" class="t-input" v-model:value="valueE" :style="{width: props.width}" />
+    <a-textarea v-else show-count :rows="3" :bordered="false" class="t-input" v-model:value="valueE" :style="{width: props.width}" />
   </div>
 </template>
 <script lang="ts" setup>

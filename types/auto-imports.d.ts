@@ -127,7 +127,6 @@ declare global {
   const useAccess: typeof import('../src/composables/access')['useAccess']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('@vueuse/core')['useAnimate']
-  const useAntRowSelection: typeof import('../src/utils/tools')['useAntRowSelection']
   const useAntdToken: typeof import('../src/composables/antd-token')['useAntdToken']
   const useAppStore: typeof import('../src/stores/app')['useAppStore']
   const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']

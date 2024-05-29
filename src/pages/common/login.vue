@@ -76,6 +76,7 @@ async function submit() {
     }
     const { data } = await loginApi(params)
     token.value = data?.token
+    window.localStorage.setItem('role', data?.role)
     notification.success({
       message: '登录成功',
       description: '欢迎回来！',
@@ -121,7 +122,7 @@ onBeforeUnmount(() => {
               <img w-full h-full object-cover src="/logo.svg">
             </span>
             <span class="ant-pro-form-login-title">
-              Antdv Pro
+              CBEM
             </span>
             <span class="ant-pro-form-login-desc">
               {{ t("pages.layouts.userLayout.title") }}

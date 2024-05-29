@@ -27,7 +27,10 @@ export enum ORDER_STATUS {
   CANCLED = 3,
   REFUND = 4,
 }
+
 export const ORDER_STATUS_ARRAY = ["待付款", "已付款", "已归档", "已取消", "已退款"]
+
+export const DILIVERY_TYPE = ["海运", "空运", "陆运", "自取", "传真"]
 
 // 退换货状态
 export enum RAE_STATUS {
@@ -38,3 +41,5 @@ export enum RAE_STATUS {
   CANCLED = 5
 }
 export const RAE_STATUS_ARRAY = ["申请退货", "申请换货", "已退货", "已换货", "已取消"]
+
+export const ROLES_ARRAY = ['ADMIN', 'VENDOR', 'STORAGE_MANAGER', 'SALER']

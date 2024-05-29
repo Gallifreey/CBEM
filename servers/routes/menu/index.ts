@@ -1,4 +1,4 @@
-const menuData = [
+export const menuData = [
   {
     id: 1,
     parentId: null,
@@ -328,7 +328,7 @@ export const accessMenuData = [
   }
 ]
 
-const RouteMap = new Map<String, Array<Object>>([
+export const RouteMap = new Map<String, Array<Object>>([
   ['VENDOR', vendorAccessMenuData],
   ['SALER', salerAccessMenuData],
   ['STORAGE_MANAGER', storageAccessMenuData],
@@ -336,11 +336,12 @@ const RouteMap = new Map<String, Array<Object>>([
 ])
 
 export default eventHandler((event: any) => {
-  const token = getHeader(event, 'Authorization')
+  //const role = window.localStorage.getItem('role') || ""
+  const token = getHeader(event, 'token')
   const username = Buffer.from(token, 'base64').toString('utf-8')
   return {
     code: 200,
     msg: '获取成功',
-    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(username.toUpperCase()), ...menuData.slice(menuData.length-3)],
+    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(""), ...menuData.slice(menuData.length-3)],
   }
 })

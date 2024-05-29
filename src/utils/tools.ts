@@ -78,3 +78,15 @@ export function userCreateVueNode(graph: Graph){
 	}
 	return node;
 }
+
+export function generateObjectByArray(data: Array<any>){
+	const obj: Array<Object> = [];
+	let index = 0;
+	data.forEach((d: any) => {
+		obj.push({
+			value: ++index,
+			label: d
+		})
+	})
+	return obj;
+}

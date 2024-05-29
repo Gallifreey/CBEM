@@ -15,20 +15,16 @@
              </a-form-item>
            </a-col>
            <a-col :span="8">
-             <a-form-item name="deliveyState" label="递送方式">
-               <a-select v-model:value="formState.deliveyState" />
-             </a-form-item>
-           </a-col>
-         </a-row>
-         <a-row>
-          <a-col :span="8">
              <a-form-item name="publishTime" label="创建时间">
-               <a-range-picker v-model:value="formState.publishTime" />
+               <a-range-picker v-model:value="formState.publishTime" style="width: 100%;" />
              </a-form-item>
            </a-col>
          </a-row>
          <a-row>
            <a-space>
+             <a-form-item>
+               <a-button>批量删除 - ({{ rowSelectedKeys.length }} 个订单)</a-button>
+             </a-form-item>
              <a-form-item>
                <a-button>添加订单</a-button>
              </a-form-item>
@@ -49,10 +45,15 @@
          </template>
          <template v-if="column.dataIndex === 'action'">
            <a-space>
-             <a @click="openHandler.open1 = true">预览</a>
-             <a @click="openHandler.open2 = true">清单</a>
-             <a @click="openHandler.open3 = true">修改</a>
-             <a>删除</a>
+             <a-button size="small" type="link" @click="openHandler.open1 = true">预览</a-button>
+             <a-button size="small" type="link" @click="openHandler.open2 = true">清单</a-button>
+             <a-button size="small" type="link" @click="openHandler.open3 = true">修改</a-button>
+             <a-popconfirm
+             title="确定要删除此订单吗?"
+             @confirm="handleDelete(record.key)"
+             >
+              <a-button size="small" type="link" danger>删除</a-button>
+             </a-popconfirm>
            </a-space>
          </template>
        </template>
@@ -72,17 +73,17 @@
  import OrderModal from '../components/OrderModal.vue'
  import OrderBOM from '../components/OrderBOM.vue'
  import OrderModify from '../components/OrderModify.vue'
+import { deleteOrderApi, getOrdersByUIDApi } from '~@/api/common/order';
+import { message } from 'ant-design-vue';
 
  interface FormState {
    source: string,
    target: string,
-   deliveyState: string,
    publishTime: RangeValue
  }
  const formState = ref<FormState>({
    source: "",
    target: "",
-   deliveyState: "",
    publishTime: [dayjs("2015/01/01"), dayjs("2015/01/01")],
  })
  const openHandler = ref({
@@ -112,6 +113,21 @@
  ])
  const rowSelectedKeys = ref([])
  const rowSelection = useAntRowSelection<VendorOrderColumnType>(rowSelectedKeys);
+ async function handleInit(){
+  const { orders } = await getOrdersByUIDApi({
+    uid: 1
+  });
+ }
+ async function handleDelete(id: number | string){
+  const { code } = await deleteOrderApi({
+    id: id
+  });
+  if(code !== 0) message.success("订单删除成功！")
+  else message.error("订单删除失败！")
+ }
+ onMounted(() => {
+  handleInit()
+ })
  </script>
  <style lang="less" scoped>
  

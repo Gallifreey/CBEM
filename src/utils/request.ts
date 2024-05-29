@@ -23,6 +23,13 @@ const instance: AxiosInstance = axios.create({
 })
 const axiosLoading = new AxiosLoading()
 async function requestHandler(config: InternalAxiosRequestConfig & RequestConfigExtra): Promise<InternalAxiosRequestConfig> {
+  const token = useAuthorization()
+  if(config.url?.indexOf('menu') !== -1){
+    // 放行menu请求
+    
+    config.baseURL = '/api'
+    return config
+  }
   // 处理请求前的url
   if (
     import.meta.env.DEV
@@ -33,7 +40,6 @@ async function requestHandler(config: InternalAxiosRequestConfig & RequestConfig
     //  替换url的请求前缀baseUrl
     config.baseURL = import.meta.env.VITE_APP_BASE_API_DEV
   }
-  const token = useAuthorization()
 
   if (token.value && config.token !== false)
     config.headers.set(STORAGE_AUTHORIZE_KEY, token.value)
