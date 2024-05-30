@@ -212,7 +212,7 @@ export const salerAccessMenuData = [
     id: 500,
     parentId: null,
     title: '数据分析与统计',
-    icon: 'CodepenOutlined',
+    icon: 'BarChartOutlined',
     component: 'RouteView',
     redirect: '/statistics/BusinessOverview',
     path: '/statistics',
@@ -286,6 +286,26 @@ export const storageAccessMenuData = [
     path: '/storage_manager/storage',
     name: 'StorageManagerBrandStorage',
     locale: '库存管理',
+  },
+  {
+    id: 605,
+    parentId: 600,
+    title: '新增仓库',
+    component: '/storage/storage_manager/add',
+    path: '/storage_manager/add',
+    name: 'StorageManagerAdd',
+    locale: '新增仓库',
+    hideInMenu: true
+  },
+  {
+    id: 606,
+    parentId: 600,
+    title: '新增商品',
+    component: '/storage/storage_manager/add_commodity',
+    path: '/storage_manager/add_commodity',
+    name: 'StorageManagerAddCommodity',
+    locale: '新增商品',
+    hideInMenu: true
   }
 ]
 
@@ -313,6 +333,6 @@ export function getRouteMenusApi() {
   return {
     code: 200,
     msg: '获取成功',
-    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(ROLES_ARRAY[role]), ...menuData.slice(menuData.length-3)],
+    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(ROLES_ARRAY[1]), ...menuData.slice(menuData.length-3)],
   }
 }

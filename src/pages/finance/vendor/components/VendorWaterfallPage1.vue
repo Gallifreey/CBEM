@@ -27,19 +27,26 @@ import { useAntRowSelection } from '~@/utils/tools'
 import ColorfulTag from '~@/components/utils/ColorfulTag.vue';
 import { ORDER_STATUS_ARRAY } from '~@/utils/constant';
 import PaymentModal from './PaymentModal.vue';
+import { getOrderWaterFallList, queryOrderWaterFall } from '~@/api/common/finance';
 
-const data = ref([
-  {
-    id: '1',
-    key: '1',
-    status: 1
-  }
-])
+const dataFrame = ref<VendorOrderWaterFallColumnType[]>([])
 const openHandler = ref({
   payment: false
 })
 const rowSelectedKeys = ref([])
 const rowSelection = useAntRowSelection<VendorOrderWaterFallColumnType>(rowSelectedKeys);
+
+async function loadData(){
+  const { data } = await getOrderWaterFallList(1)
+  dataFrame.value = data
+}
+async function queryData(){
+  const { data } = await queryOrderWaterFall(1)
+  dataFrame.value = data
+}
+onMounted(() => {
+  loadData();
+})
 </script>
 <style lang="less" scoped>
 

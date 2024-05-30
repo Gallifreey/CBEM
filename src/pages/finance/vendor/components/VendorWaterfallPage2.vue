@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="container">
-      <a-table :columns="VendorOrderWaterFallColumn" :row-selection="rowSelection" :data-source="data" :scroll="{x: 1000}">
+      <a-table :columns="OrderPaymentWaterfallColumn" :row-selection="rowSelection" :data-source="data" :scroll="{x: 1000}">
         <template #bodyCell="{record, column}">
           <template v-if="column.dataIndex === 'status'">
             <ColorfulTag :text="ORDER_STATUS_ARRAY[record.status]" />
@@ -18,7 +18,7 @@
     </div>
   </template>
   <script lang="ts" setup>
-  import { VendorOrderWaterFallColumn, VendorOrderWaterFallColumnType } from '~@/utils/columns'
+  import { OrderPaymentWaterfallColumn, OrderPaymentWaterfallType } from '~@/utils/columns'
   import { useAntRowSelection } from '~@/utils/tools'
   import ColorfulTag from '~@/components/utils/ColorfulTag.vue';
   import { ORDER_STATUS_ARRAY } from '~@/utils/constant';
@@ -31,7 +31,7 @@
     }
   ])
   const rowSelectedKeys = ref<(String | Number)[]>([]);
-  const rowSelection = useAntRowSelection<VendorOrderWaterFallColumnType>(rowSelectedKeys);
+  const rowSelection = useAntRowSelection<OrderPaymentWaterfallType>(rowSelectedKeys);
   </script>
   <style lang="less" scoped>
   

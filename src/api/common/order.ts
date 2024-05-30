@@ -1,14 +1,5 @@
 import { RangeValue } from "~@/types/form"
-
-export interface OrderListParams {
-    name: string,
-    description: string,
-    source: string,
-    target: string,
-    publishTime: string,
-    state: number,
-    key?: number
-}
+import { VendorOrderColumnType } from "~@/utils/columns"
 
 export interface OrderModifyParams {
     description?: string,
@@ -32,7 +23,7 @@ export interface OrderDeleteParams {
 }
 
 export function getOrdersByUIDApi(params: OrderListUIDQueryParams) {
-    return useGet<OrderListParams, OrderListUIDQueryParams>('/order/list', params, {
+    return useGet<VendorOrderColumnType[], OrderListUIDQueryParams>('/order/list', params, {
         token: true,
         customDev: true,
         loading: false,
@@ -40,7 +31,7 @@ export function getOrdersByUIDApi(params: OrderListUIDQueryParams) {
 }
 
 export function getOrdersByQueryApi(params: OrderListQueryParams){
-    return useGet<OrderListQueryParams>('/order/query', params)
+    return useGet<VendorOrderColumnType[], OrderListQueryParams>('/order/query', params)
 }
 
 export function modifyOrderApi(params: OrderModifyParams){

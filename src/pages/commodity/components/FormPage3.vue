@@ -3,7 +3,7 @@
   <div class="container">
     <a-form :model="skuE" :rules="rules"  :label-col="{ span: 8 }" :wrapper-col="{ span: 8 }">
       <a-form-item name="skuColor" label="SKU商品色系">
-        <a-input v-model:value="skuE.skuColor" :style="{borderColor: skuE.skuColor}" />
+        <a-input v-model:value="skuE.skuColor" :style="{borderColor: skuE.skuColor, background: skuE.skuColor}" />
       </a-form-item>
       <a-form-item name="skuSize" label="SKU商品规格">
         <a-input v-model:value="skuE.skuSize[0]" style="width: 50px;"/> × <a-input v-model:value="skuE.skuSize[1]" style="width: 50px;"/> × <a-input v-model:value="skuE.skuSize[2]" style="width: 50px;"/> m³

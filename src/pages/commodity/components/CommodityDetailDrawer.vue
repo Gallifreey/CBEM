@@ -189,17 +189,23 @@
 <script lang="ts" setup>
 import { CarOutlined, BankOutlined, TableOutlined, UngroupOutlined, PayCircleOutlined } from '@ant-design/icons-vue'
 import JsBarcode from 'jsbarcode';
+import { getCommodityDetailsByCID } from '~@/api/common/commodity';
 
 const props = defineProps({
   open: {
     type: Boolean,
     default: false
+  },
+  id: {
+    type: Number,
+    default: -1
   }
 })
 const activeKey = ref("1");
 const emits = defineEmits(['update:open'])
 const openE = useVModel(props, "open", emits)
 onMounted(() => {
+  loadData();
   nextTick(() => {
     JsBarcode('.barcode', '114514', {
       format: 'CODE39',
@@ -212,6 +218,11 @@ onMounted(() => {
     })
   })
 })
+async function loadData(){
+  const { data } = await getCommodityDetailsByCID(props.id)
+  data
+}
+
 </script>
 <style lang="less" scoped>
 :root{

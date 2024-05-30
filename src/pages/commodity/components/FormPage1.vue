@@ -15,10 +15,10 @@
         <a-input-number v-model:value="basicInfoE.distributionPrice"/>
       </a-form-item>
       <a-form-item name="brand" label="品牌">
-        <a-select v-model:value="basicInfoE.brand" />
+        <a-select v-model:value="basicInfoE.brand" :options="brandData"/>
       </a-form-item>
       <a-form-item name="deliveyState" label="递送方式">
-        <a-select v-model:value="basicInfoE.deliveyState" />
+        <a-select v-model:value="basicInfoE.deliveyState" :options="deliveryStateData" />
       </a-form-item>
       <a-form-item name="unit" label="单位">
         <a-input v-model:value="basicInfoE.unit"/>
@@ -32,6 +32,7 @@
 <script lang="ts" setup>
 import { CommodityBasicInfoData, CommodityHolderValue } from '@/types/form'
 import type { Rule } from 'ant-design-vue/es/form';
+import { getAllBrand, getAllDeliveryState } from '~@/api/common/utils';
 
 const props = defineProps({
   basicInfo: {
@@ -68,6 +69,20 @@ const rules: Record<string, Rule[]> = {
     }
   ]
 }
+const brandData = ref();
+const deliveryStateData = ref();
+async function getBrandData(){
+  const { data } = await getAllBrand();
+  if(data)  brandData.value = data;
+}
+async function getDeliveryStateData(){
+  const { data } = await getAllDeliveryState();
+  if(data)  deliveryStateData.value = data;
+}
+onMounted(() => {
+  getBrandData();
+  getDeliveryStateData();
+})
 </script>
 <style lang="less" scoped>
 

@@ -23,7 +23,7 @@
         <a-col :span="8">
           <a-space>
             <a-button type="primary">查询</a-button>
-            <a-button>添加仓库</a-button>
+            <a-button @click="direct2add">添加仓库</a-button>
           </a-space>
         </a-col>
       </a-row>
@@ -63,6 +63,12 @@ const data = ref<StorageManagerStorageManagementType[]>([
     key: 0
   }
 ])
+const router = useRouter();
+const direct2add = () => {
+  router.push({
+    path: '/storage_manager/add'
+  })
+}
 </script>
 <style lang="less" scoped>
 

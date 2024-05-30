@@ -4,8 +4,6 @@
     <template #content>
       <a-tabs v-model:active-key="tab">
         <a-tab-pane tab="经营总览" key="0" />
-        <a-tab-pane tab="流量分析" key="1" />
-        <a-tab-pane tab="客户分析" key="2" />
       </a-tabs>
     </template>
     <Page1 v-if="tab === '0'" />

@@ -13,6 +13,7 @@ export type CommdityColumnType = {
     size: string,
     barCodeMsg: string,
     publishTime: string,
+    status?: boolean,
     key?: number
 }
 export const CommdityColumn: TableColumnType<CommdityColumnType>[] = [
@@ -429,8 +430,9 @@ export const StorageManagerIOColumn: TableColumnType<StorageManagerIOType>[] = [
 // storage manager brand table
 export type StorageManagerBrandType = {
     key?: number,
-    name: string,
     authTime: Dayjs,
+    name: string,
+    picture?: string
 }
 
 export const StorageManagerBrandColumn: TableColumnType<StorageManagerBrandType>[] = [
@@ -447,10 +449,16 @@ export const StorageManagerBrandColumn: TableColumnType<StorageManagerBrandType>
         width: 200
     },
     {
+        dataIndex: 'picture',
+        title: '品牌缩略图',
+        align: 'center',
+        width: 200
+    },
+    {
         dataIndex: 'action',
         title: '操作',
         align: 'center',
-        width: 200
+        width: 100
     }
 ]
 
@@ -496,7 +504,7 @@ export const StorageManagerStorageColumn: TableColumnType<StorageManagerStorageT
         dataIndex: 'remained',
         title: '库存剩余',
         align: 'center',
-        width: 100
+        width: 150
     },
     {
         dataIndex: 'publishTime',
@@ -515,6 +523,56 @@ export const StorageManagerStorageColumn: TableColumnType<StorageManagerStorageT
         title: '操作',
         align: 'center',
         width: 150,
+        fixed: 'right'
+    }
+]
+
+export type OrderPaymentWaterfallType = {
+    key?: number,
+    orderID: number,
+    total: number,
+    type: number,
+    name: string,
+    paymentDate: Dayjs
+}
+
+export const OrderPaymentWaterfallColumn: TableColumnType<OrderPaymentWaterfallType>[] = [
+    {
+        dataIndex: 'orderID',
+        title: '订单编号',
+        align: 'center',
+        width: 200,
+        fixed: 'left'
+    },
+    {
+        dataIndex: 'name',
+        title: '商户名',
+        align: 'center',
+        width: 200,
+    },
+    {
+        dataIndex: 'price',
+        title: '金额',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'type',
+        title: '交易类型',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'paymentDate',
+        title: '交易日期',
+        align: 'center',
+        width: 200
+    },
+    {
+        dataIndex: 'action',
+        title: '操作',
+        align: 'center',
+        width: 200,
         fixed: 'right'
     }
 ]
