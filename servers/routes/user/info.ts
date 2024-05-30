@@ -1,5 +1,5 @@
 export default eventHandler((event) => {
-  const token = getHeader(event, 'Authorization')
+  const token = getHeader(event, 'token')
   const username = Buffer.from(token, 'base64').toString('utf-8')
   if (!token) {
     return {

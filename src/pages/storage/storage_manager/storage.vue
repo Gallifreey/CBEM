@@ -34,19 +34,20 @@
         </a-row>
         <a-row>
           <a-space>
+            <a-button v-if="rowSelectedKeys.length >= 1" danger>已选择了 {{ rowSelectedKeys.length }} 个商品</a-button>
             <a-button type="primary">添加商品</a-button>
             <a-button>库存打印</a-button>
           </a-space>
         </a-row>
       </a-form>
     </template>
-    <a-table :columns="StorageManagerStorageColumn" :data-source="data">
+    <a-table :columns="StorageManagerStorageColumn" :data-source="data" :row-selection="rowSelection">
       <template #bodyCell="{column}">
         <template v-if="column.dataIndex === 'action'">
           <a-space>
-            <a-button type="link">审阅</a-button>
-            <a-button type="link">修改</a-button>
-            <a-button type="link" danger>删除</a-button>
+            <a-button size="small" type="link">审阅</a-button>
+            <a-button size="small" type="link">修改</a-button>
+            <a-button size="small" type="link" danger>删除</a-button>
           </a-space>
         </template>
       </template>
@@ -57,10 +58,21 @@
 import dayjs from 'dayjs';
 import { RangeValue } from '~@/types/form';
 import { StorageManagerStorageColumn, StorageManagerStorageType } from '~@/utils/columns'
+import { useAntRowSelection } from '~@/utils/tools';
 
 const data = ref<StorageManagerStorageType[]>([
   {
     key: 0,
+    name: "2111",
+    brand: "111",
+    publishTime: dayjs(),
+    price: 12.00,
+    remained: 1200,
+    picture: "",
+    description: "1111111111111111"
+  },
+  {
+    key: 1,
     name: "2111",
     brand: "111",
     publishTime: dayjs(),
@@ -84,6 +96,8 @@ const formState = ref<FormState>({
   remained: 0,
   publishTime: [dayjs(), dayjs()]
 })
+const rowSelectedKeys = ref([])
+const rowSelection = useAntRowSelection<StorageManagerStorageType>(rowSelectedKeys);
 </script>
 <style lang="less" scoped>
 

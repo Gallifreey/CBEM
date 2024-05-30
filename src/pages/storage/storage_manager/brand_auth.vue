@@ -17,7 +17,7 @@
         </a-row>
         <a-row>
           <a-space>
-            <a-button>授权品牌</a-button>
+            <a-button @click="open = true">授权品牌</a-button>
             <a-button type="primary">查询</a-button>
           </a-space>
         </a-row>
@@ -27,18 +27,19 @@
       <template #bodyCell="{column}">
         <template v-if="column.dataIndex === 'action'">
           <a-space>
-            <a-button type="link" danger>取消授权</a-button>
-            <a-button type="link">修改</a-button>
+            <a-button size="small" type="link" danger>取消授权</a-button>
           </a-space>
         </template>
       </template>
     </a-table>
+    <BrandAuthModal v-model:open="open"/>
   </PageContainer>
 </template>
 <script lang="ts" setup>
 import dayjs from 'dayjs';
 import { RangeValue } from '~@/types/form';
 import { StorageManagerBrandType, StorageManagerBrandColumn } from '~@/utils/columns'
+import BrandAuthModal from './components/BrandAuthModal.vue';
 
 const data = ref<StorageManagerBrandType[]>([
   {
@@ -51,6 +52,7 @@ interface FormState {
   name: string,
   authTime: RangeValue
 }
+const open = ref(false);
 const formState = ref<FormState>({
   name: "",
   authTime: [dayjs(), dayjs()]

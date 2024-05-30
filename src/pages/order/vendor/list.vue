@@ -23,22 +23,22 @@
          <a-row>
            <a-space>
              <a-form-item>
-               <a-button>批量删除 - ({{ rowSelectedKeys.length }} 个订单)</a-button>
-             </a-form-item>
-             <a-form-item>
-               <a-button>添加订单</a-button>
+               <a-button v-if="rowSelectedKeys.length !== 0" danger @click="handleDelete(rowSelectedKeys)" >批量删除 - ( {{ rowSelectedKeys.length }} 个订单)</a-button>
              </a-form-item>
              <a-form-item>
                <a-button>打印订单</a-button>
              </a-form-item>
              <a-form-item>
-               <a-button type="primary" html-type="submit">查询</a-button>
+               <a-button type="primary">添加订单</a-button>
+             </a-form-item>
+             <a-form-item>
+               <a-button type="primary" html-type="submit" @click="handleQuery">查询</a-button>
              </a-form-item>
            </a-space>
          </a-row>
        </a-form>
      </template>
-     <a-table :columns="VendorOrderColumn" :data-source="data" :row-selection="rowSelection" :scroll="{ x: 1300}">
+     <a-table :columns="VendorOrderColumn" :data-source="orders" :row-selection="rowSelection" :scroll="{ x: 1300}">
        <template #bodyCell="{record, column}">
          <template v-if="column.dataIndex === 'state'">
             <ColorfulTag :text="ORDER_STATUS_ARRAY[record.state]" :number="record.state"/>
@@ -73,7 +73,7 @@
  import OrderModal from '../components/OrderModal.vue'
  import OrderBOM from '../components/OrderBOM.vue'
  import OrderModify from '../components/OrderModify.vue'
-import { deleteOrderApi, getOrdersByUIDApi } from '~@/api/common/order';
+import { deleteOrderApi, getOrdersByQueryApi, getOrdersByUIDApi } from '~@/api/common/order';
 import { message } from 'ant-design-vue';
 
  interface FormState {
@@ -91,7 +91,7 @@ import { message } from 'ant-design-vue';
   open2: false,
   open3: false
  })
- const data = shallowRef<VendorOrderColumnType[]>([
+ const orders = ref<VendorOrderColumnType[]>([
    {
      key: 1,
      name: '仓库一',
@@ -102,7 +102,7 @@ import { message } from 'ant-design-vue';
      state: 2
    },
    {
-    key: 2,
+     key: 2,
      name: '仓库一',
      description: '东风街',
      target: "1",
@@ -114,11 +114,16 @@ import { message } from 'ant-design-vue';
  const rowSelectedKeys = ref([])
  const rowSelection = useAntRowSelection<VendorOrderColumnType>(rowSelectedKeys);
  async function handleInit(){
-  const { orders } = await getOrdersByUIDApi({
+  const { code, data } = await getOrdersByUIDApi({
     uid: 1
   });
+  if(code !== 0) orders.value = data;
  }
- async function handleDelete(id: number | string){
+ async function handleQuery(){
+  const { code, data } = await getOrdersByQueryApi(formState.value);
+  if(code !== 0) orders.value = data;
+ }
+ async function handleDelete(id: number | string | number[] | string[]){
   const { code } = await deleteOrderApi({
     id: id
   });

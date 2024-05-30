@@ -29,7 +29,7 @@
               <a-row :gutter="[30, 0]">
                 <a-col :span="8">
                   <a-form-item name="status" label="订单状态">
-                    <a-select v-model:value="formState.order.status" />
+                    <a-select v-model:value="formState.order.status" :options="orderOptions" />
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -51,16 +51,18 @@
         </a-tabs>
       </div>
     </template>
-    <transition>
-      <VendorWaterfallPage1 v-if="parseInt(activeKey) === 1" />
-    </transition>
+    <VendorWaterfallPage1 v-if="parseInt(activeKey) === 1" />
+    <VendorWaterfallPage2 v-if="parseInt(activeKey) === 2" />
   </page-container>
 </template>
 <script lang="ts" setup>
 import VendorWaterfallPage1 from './components/VendorWaterfallPage1.vue';
+import VendorWaterfallPage2 from './components/VendorWaterfallPage2.vue';
 import { RangeValue } from '~@/types/form';
 import dayjs from 'dayjs';
 import CustomLine from './components/CustomLine.vue';
+import { ORDER_STATUS_ARRAY } from '~@/utils/constant';
+import { generateObjectByArray } from '~@/utils/tools';
 
 const activeKey = ref('1');
 interface FormState {
@@ -69,25 +71,22 @@ interface FormState {
     price: Number,
     publishTime: RangeValue,
     payTime: RangeValue,
-    status: Number
+    status: String
   }
 }
-const formState = ref({
+const formState = ref<FormState>({
   order: {
     name: "",
     price: 0.0,
     publishTime: [dayjs(), dayjs()],
     payTime: [dayjs(), dayjs()],
-    status: 0
+    status: ""
   }
 })
+const orderOptions = generateObjectByArray(ORDER_STATUS_ARRAY);
 </script>
-<style lang="less">
-:deep(.tabs){
-  background: black;
-  .ant-tabs-tab{
-    align-items: end;
-    background: black;
-  }
+<style lang="less" scoped>
+::v-deep .ant-tabs-tab{
+  align-items: end;
 }
 </style>

@@ -1,6 +1,7 @@
 import { get } from 'lodash-es'
 import router from '@/router'
 import { Graph } from '@antv/x6'
+import Dayjs from 'dayjs'
 
 export function getQueryParam(param: string | string[], defaultVal = '') {
   const query = router.currentRoute.value?.query ?? {}
@@ -89,4 +90,27 @@ export function generateObjectByArray(data: Array<any>){
 		})
 	})
 	return obj;
+}
+
+export function dayjs2TimeString(day: Dayjs | Dayjs[]){
+	const res: string[] = []
+	if(day instanceof Dayjs) day = [day];
+	day.forEach((d: Dayjs) => {
+		res.push(d.format("yyyy/MM/dd HH:mm:ss"))
+	})
+	return res;
+}
+
+export function plotData2SeriesData(data: Array<object>, seriesField: string[], targetField: string){
+	const resObj: Array<Object> = [];
+	data.forEach((d: object) => {
+		for(const key in Object.keys(d)){
+			if(key in seriesField){
+				const obj = {
+					
+				}
+			}
+		}
+	})
+	return resObj;
 }

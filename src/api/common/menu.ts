@@ -212,7 +212,7 @@ export const salerAccessMenuData = [
     id: 500,
     parentId: null,
     title: '数据分析与统计',
-    icon: 'CodepenOutlined',
+    icon: 'BarChartOutlined',
     component: 'RouteView',
     redirect: '/statistics/BusinessOverview',
     path: '/statistics',
@@ -313,6 +313,6 @@ export function getRouteMenusApi() {
   return {
     code: 200,
     msg: '获取成功',
-    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(ROLES_ARRAY[role]), ...menuData.slice(menuData.length-3)],
+    data: [...menuData.slice(0, menuData.length-3), ...RouteMap.get(ROLES_ARRAY[2]), ...menuData.slice(menuData.length-3)],
   }
 }

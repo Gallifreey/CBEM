@@ -20,7 +20,7 @@
             </a-form-item>
           </a-col>
         </a-row>
-        <a-row>
+        <a-row :gutter="[30, 0]">
           <a-col :span="8">
             <a-form-item name="publishTime" label="发布时间">
               <a-range-picker v-model:value="formState.publishTime" />
@@ -28,15 +28,22 @@
           </a-col>
           <a-col :span="8">
             <a-form-item name="salePrice" label="销售价">
-              <a-input-number type="number" v-model:value="formState.salePrice"/>
+              <a-input-number style="width: 100%" type="number" v-model:value="formState.salePrice"/>
             </a-form-item>
           </a-col>
+          <Access :access="'SALER'">
+            <a-col :span="8">
+              <a-form-item name="status" label="上货状态">
+                <a-select  v-model:value="formState.status"/>
+              </a-form-item>
+            </a-col>
+          </Access>
         </a-row>
         <a-row>
           <a-space>
             <a-form-item>
               <a-button :disabled="rowSelectedKeys.length === 0">
-                删除 - 选中{{ rowSelectedKeys.length }} 个项目
+                删除 - 选中 {{ rowSelectedKeys.length }} 个项目
               </a-button>
             </a-form-item>
             <a-form-item>
@@ -50,13 +57,16 @@
       </a-form>
     </template>
     <a-table :columns="CommdityColumn" :data-source="data" :row-selection="rowSelection" :scroll="{ x: 1400}">
-      <template #bodyCell={column}>
+      <template #bodyCell="{column, record}">
         <template v-if="column.dataIndex === 'barCodeMsg'">
           <svg class="barcode"></svg>
         </template>
         <template v-if="column.dataIndex === 'action'">
           <a-space>
-            <a>上架</a>
+            <Access :access="'SALER'">
+              <a v-if="record.status">上架</a>
+              <a v-else>下架</a>
+            </Access>
             <a @click="drawerOpen = true">审阅</a>
             <a>修改</a>
             <a-popconfirm title="确认删除所选商品">
@@ -82,7 +92,8 @@ interface FormState {
   brand: string,
   deliveryState: string,
   publishTime: RangeValue,
-  salePrice: number
+  salePrice: number,
+  status: string,
 }
 const formState = ref<FormState>({
   name: "",
@@ -90,6 +101,7 @@ const formState = ref<FormState>({
   deliveryState: "",
   publishTime: [dayjs("2015/01/01"), dayjs("2015/01/01")],
   salePrice: 0,
+  status: "off"
 })
 const drawerOpen = ref(false);
 const data = shallowRef<CommdityColumnType[]>([
@@ -104,7 +116,8 @@ const data = shallowRef<CommdityColumnType[]>([
     color: '红色',
     size: '3*3*3m',
     barCodeMsg: '',
-    publishTime: '2024/5/9 11:11:11'
+    publishTime: '2024/5/9 11:11:11',
+    status: true,
   },
   {
     key: 2,
@@ -117,7 +130,8 @@ const data = shallowRef<CommdityColumnType[]>([
     color: '红色',
     size: '3*3*3m',
     barCodeMsg: '',
-    publishTime: '2024/5/9 11:11:11'
+    publishTime: '2024/5/9 11:11:11',
+    status: false,
   }
 ])
 onMounted(() => {
