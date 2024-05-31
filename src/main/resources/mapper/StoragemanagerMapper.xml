@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.StoragemanagerMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Storagemanager">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="storgeid" column="storgeID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,uid,storgeID
+    </sql>
+    <!-- 插入新记录 -->
+    <insert id="createStoragemanager" parameterType="com.sd.entity.Storagemanager">
+        insert into storagemanager (uid, storgeID)
+        values (#{uid}, #{storgeid})
+    </insert>
+
+    <!-- 删除记录 -->
+    <delete id="deleteStoragemanager" parameterType="int">
+        delete
+        from storagemanager
+        where id = #{id};
+    </delete>
+
+    <!-- 更新记录 -->
+    <update id="updateStoragemanager" parameterType="com.sd.entity.Storagemanager">
+        update storagemanager
+        set uid = #{uid},
+            storgeID = #{storgeid}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有记录 -->
+    <select id="findAllStoragemanager" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from storagemanager;
+    </select>
+</mapper>

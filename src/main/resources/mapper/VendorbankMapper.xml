@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.VendorbankMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Vendorbank">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="commodityid" column="commodityID" jdbcType="INTEGER"/>
+            <result property="vendorid" column="vendorID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,commodityID,vendorID
+    </sql>
+    <!-- 插入新记录 -->
+    <insert id="createVendorbank" parameterType="com.sd.entity.Vendorbank">
+        insert into vendorbank (commodityID, vendorID)
+        values (#{commodityid}, #{vendorid})
+    </insert>
+
+    <!-- 删除记录 -->
+    <delete id="deleteVendorbank" parameterType="int">
+        delete
+        from vendorbank
+        where id = #{id};
+    </delete>
+
+    <!-- 更新记录 -->
+    <update id="updateVendorbank" parameterType="com.sd.entity.Vendorbank">
+        update vendorbank
+        set commodityID = #{commodityid},
+            vendorID = #{vendorid}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有记录 -->
+    <select id="findAllVendorbank" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from vendorbank;
+    </select>
+</mapper>

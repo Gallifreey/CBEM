@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.CommodityMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Commodity">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="saleprice" column="salePrice" jdbcType="DECIMAL"/>
+            <result property="distributionprice" column="distributionPrice" jdbcType="DECIMAL"/>
+            <result property="brand" column="brand" jdbcType="SMALLINT"/>
+            <result property="deliveystate" column="deliveyState" jdbcType="SMALLINT"/>
+            <result property="unit" column="unit" jdbcType="SMALLINT"/>
+            <result property="weight" column="weight" jdbcType="DOUBLE"/>
+            <result property="bomname" column="bomName" jdbcType="VARCHAR"/>
+            <result property="parentbomid" column="parentBomID" jdbcType="OTHER"/>
+            <result property="childrenbomid" column="childrenBomID" jdbcType="OTHER"/>
+            <result property="assembleprice" column="assemblePrice" jdbcType="DECIMAL"/>
+            <result property="splitprice" column="splitPrice" jdbcType="DECIMAL"/>
+            <result property="costfomula" column="costFomula" jdbcType="VARCHAR"/>
+            <result property="color" column="color" jdbcType="VARCHAR"/>
+            <result property="size" column="size" jdbcType="VARCHAR"/>
+            <result property="skucolor" column="skuColor" jdbcType="VARCHAR"/>
+            <result property="skusize" column="skuSize" jdbcType="DOUBLE"/>
+            <result property="skubarcodemsg" column="skuBarCodeMsg" jdbcType="OTHER"/>
+            <result property="skuassociatedid" column="skuAssociatedID" jdbcType="OTHER"/>
+            <result property="skuweight" column="skuWeight" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="SMALLINT"/>
+            <result property="remaining" column="remaining" jdbcType="INTEGER"/>
+            <result property="barcodemsg" column="barCodeMsg" jdbcType="OTHER"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="publishtime" column="publishTime" jdbcType="TIMESTAMP"/>
+            <result property="onsaletime" column="onsaleTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        salePrice,distributionPrice,brand,
+        deliveyState,unit,weight,
+        bomName,parentBomID,childrenBomID,
+        assemblePrice,splitPrice,costFomula,
+        color,size,skuColor,
+        skuSize,skuBarCodeMsg,skuAssociatedID,
+        skuWeight,status,remaining,
+        barCodeMsg,picture,publishTime,
+        onsaleTime
+    </sql>
+    <!-- 插入新商品 -->
+    <insert id="createCommodity" parameterType="com.sd.entity.Commodity">
+        insert into commodity (
+            name, description, salePrice, distributionPrice, brand,
+            deliveyState, unit, weight, bomName, parentBomID,
+            childrenBomID, assemblePrice, splitPrice, costFomula,
+            color, size, skuColor, skuSize, skuBarCodeMsg,
+            skuAssociatedID, skuWeight, status, remaining,
+            barCodeMsg, picture, publishTime, onsaleTime
+        )
+        values (
+                   #{name}, #{description}, #{saleprice}, #{distributionprice}, #{brand},
+                   #{deliveystate}, #{unit}, #{weight}, #{bomname}, #{parentbomid},
+                   #{childrenbomid}, #{assembleprice}, #{splitprice}, #{costfomula},
+                   #{color}, #{size}, #{skucolor}, #{skusize}, #{skubarcodemsg},
+                   #{skuassociatedid}, #{skuweight}, #{status}, #{remaining},
+                   #{barcodemsg}, #{picture}, #{publishtime}, #{onsaletime}
+               )
+    </insert>
+
+    <!-- 删除商品 -->
+    <delete id="deleteCommodity" parameterType="int">
+        delete
+        from commodity
+        where id = #{id};
+    </delete>
+
+    <!-- 更新商品 -->
+    <update id="updateCommodity" parameterType="com.sd.entity.Commodity">
+        update commodity
+        set
+            name = #{name},
+            description = #{description},
+            salePrice = #{saleprice},
+            distributionPrice = #{distributionprice},
+            brand = #{brand},
+            deliveyState = #{deliveystate},
+            unit = #{unit},
+            weight = #{weight},
+            bomName = #{bomname},
+            parentBomID = #{parentbomid},
+            childrenBomID = #{childrenbomid},
+            assemblePrice = #{assembleprice},
+            splitPrice = #{splitprice},
+            costFomula = #{costfomula},
+            color = #{color},
+            size = #{size},
+            skuColor = #{skucolor},
+            skuSize = #{skusize},
+            skuBarCodeMsg = #{skubarcodemsg},
+            skuAssociatedID = #{skuassociatedid},
+            skuWeight = #{skuweight},
+            status = #{status},
+            remaining = #{remaining},
+            barCodeMsg = #{barcodemsg},
+            picture = #{picture},
+            publishTime = #{publishtime},
+            onsaleTime = #{onsaletime}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有商品 -->
+    <select id="findAllCommodity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from commodity;
+    </select>
+
+</mapper>

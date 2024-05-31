@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.StorageMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Storage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="SMALLINT"/>
+            <result property="deliverystate" column="deliveryState" jdbcType="SMALLINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        address,type,deliveryState
+    </sql>
+    <!-- 插入新仓库 -->
+    <insert id="createStorage" parameterType="com.sd.entity.Storage">
+        insert into storage (name, description, address, type, deliveryState)
+        values (#{name}, #{description}, #{address}, #{type}, #{deliverystate})
+    </insert>
+
+    <!-- 删除仓库 -->
+    <delete id="deleteStorage" parameterType="int">
+        delete
+        from storage
+        where id = #{id};
+    </delete>
+
+    <!-- 更新仓库 -->
+    <update id="updateStorage" parameterType="com.sd.entity.Storage">
+        update storage
+        set name = #{name},
+            description = #{description},
+            address = #{address},
+            type = #{type},
+            deliveryState = #{deliverystate}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有仓库 -->
+    <select id="findAllStorage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from storage;
+    </select>
+</mapper>

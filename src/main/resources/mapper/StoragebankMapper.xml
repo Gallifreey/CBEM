@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.StoragebankMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Storagebank">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="storageid" column="storageID" jdbcType="INTEGER"/>
+            <result property="commodityid" column="commodityID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,storageID,commodityID
+    </sql>
+    <!-- 插入新记录 -->
+    <insert id="createStoragebank" parameterType="com.sd.entity.Storagebank">
+        insert into storagebank (storageID, commodityID)
+        values (#{storageid}, #{commodityid})
+    </insert>
+
+    <!-- 删除记录 -->
+    <delete id="deleteStoragebank" parameterType="int">
+        delete
+        from storagebank
+        where id = #{id};
+    </delete>
+
+    <!-- 更新记录 -->
+    <update id="updateStoragebank" parameterType="com.sd.entity.Storagebank">
+        update storagebank
+        set storageID = #{storageid},
+            commodityID = #{commodityid}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有记录 -->
+    <select id="findAllStoragebank" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from storagebank;
+    </select>
+</mapper>

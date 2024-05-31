@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  address: 10.206.170.134
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cbems
+    username: root
+    password: root
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: 1234
+  ai:
+    openai:
+      api-key: sk-TDu9f34047a2a2954794d1fe25edbd0a539835c3708jz0bu
+      base-url: https://api.gptsapi.net
+page helper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+mybatis:
+  type-aliases-package: com.sd.entity
+  mapper-locations: classpath:mapper/*.xml

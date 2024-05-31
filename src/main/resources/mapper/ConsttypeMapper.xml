@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.ConsttypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Consttype">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,type
+    </sql>
+    <!-- 插入新记录 -->
+    <insert id="createConsttype" parameterType="com.sd.entity.Consttype">
+        insert into consttype (type)
+        values (#{type})
+    </insert>
+
+    <!-- 删除记录 -->
+    <delete id="deleteConsttype" parameterType="int">
+        delete
+        from consttype
+        where id = #{id};
+    </delete>
+
+    <!-- 更新记录 -->
+    <update id="updateConsttype" parameterType="com.sd.entity.Consttype">
+        update consttype
+        set type = #{type}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有记录 -->
+    <select id="findAllConsttype" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consttype;
+    </select>
+
+</mapper>

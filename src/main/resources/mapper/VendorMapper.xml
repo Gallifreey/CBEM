@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.VendorMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Vendor">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="fox" column="fox" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="postcode" column="postcode" jdbcType="VARCHAR"/>
+            <result property="website" column="website" jdbcType="VARCHAR"/>
+            <result property="connector" column="connector" jdbcType="OTHER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="accountbank" column="accountBank" jdbcType="SMALLINT"/>
+            <result property="accountnumber" column="accountNumber" jdbcType="VARCHAR"/>
+            <result property="accountowner" column="accountOwner" jdbcType="VARCHAR"/>
+            <result property="authorizedstorage" column="authorizedStorage" jdbcType="OTHER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        address,phone,fox,
+        email,postcode,website,
+        connector,remark,accountBank,
+        accountNumber,accountOwner,authorizedStorage
+    </sql>
+
+    <!-- 插入新供应商 -->
+    <insert id="createVendor" parameterType="com.sd.entity.Vendor">
+        insert into vendor (name, description, address, phone, fox, email, postcode, website, connector, remark, accountBank, accountNumber, accountOwner, authorizedStorage)
+        values (#{name}, #{description}, #{address}, #{phone}, #{fox}, #{email}, #{postcode}, #{website}, #{connector}, #{remark}, #{accountbank}, #{accountnumber}, #{accountowner}, #{authorizedstorage})
+    </insert>
+
+    <!-- 删除供应商 -->
+    <delete id="deleteVendor" parameterType="int">
+        delete
+        from vendor
+        where id = #{id};
+    </delete>
+
+    <!-- 更新供应商 -->
+    <update id="updateVendor" parameterType="com.sd.entity.Vendor">
+        update vendor
+        set name = #{name},
+            description = #{description},
+            address = #{address},
+            phone = #{phone},
+            fox = #{fox},
+            email = #{email},
+            postcode = #{postcode},
+            website = #{website},
+            connector = #{connector},
+            remark = #{remark},
+            accountBank = #{accountbank},
+            accountNumber = #{accountnumber},
+            accountOwner = #{accountowner},
+            authorizedStorage = #{authorizedstorage}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有供应商 -->
+    <select id="findAllVendor" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from vendor;
+    </select>
+</mapper>

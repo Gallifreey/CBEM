@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Order">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="source" column="source" jdbcType="INTEGER"/>
+            <result property="target" column="target" jdbcType="INTEGER"/>
+            <result property="publishtime" column="publishTime" jdbcType="TIMESTAMP"/>
+            <result property="pricemeta" column="priceMeta" jdbcType="OTHER"/>
+            <result property="infometa" column="infoMeta" jdbcType="OTHER"/>
+            <result property="manifestmeta" column="manifestMeta" jdbcType="OTHER"/>
+            <result property="state" column="state" jdbcType="SMALLINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        source,target,publishTime,
+        priceMeta,infoMeta,manifestMeta,
+        state
+    </sql>
+    <!-- 插入新订单 -->
+    <insert id="createOrder" parameterType="com.sd.entity.Order">
+        insert into `order` (name, description, source, target, publishTime, priceMeta, infoMeta, manifestMeta, state)
+        values (#{name}, #{description}, #{source}, #{target}, #{publishtime}, #{pricemeta}, #{infometa}, #{manifestmeta}, #{state})
+    </insert>
+
+    <!-- 删除订单 -->
+    <delete id="deleteOrder" parameterType="int">
+        delete
+        from `order`
+        where id = #{id};
+    </delete>
+
+    <!-- 更新订单 -->
+    <update id="updateOrder" parameterType="com.sd.entity.Order">
+        update `order`
+        set name = #{name},
+            description = #{description},
+            source = #{source},
+            target = #{target},
+            publishTime = #{publishtime},
+            priceMeta = #{pricemeta},
+            infoMeta = #{infometa},
+            manifestMeta = #{manifestmeta},
+            state = #{state}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有订单 -->
+    <select id="findAllOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`;
+    </select>
+
+    <!-- 查询用户订单 -->
+    <select id="findOrdersById" resultMap="BaseResultMap">
+        select *
+        from `order`
+        where id=#{uid};
+    </select>
+</mapper>

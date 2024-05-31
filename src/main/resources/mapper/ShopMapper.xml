@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sd.mapper.ShopMapper">
+
+    <resultMap id="BaseResultMap" type="com.sd.entity.Shop">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="owner" column="owner" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        address,picture,owner
+    </sql>
+    <!-- 插入新商店 -->
+    <insert id="createShop" parameterType="com.sd.entity.Shop">
+        insert into shop (name, description, address, picture, owner)
+        values (#{name}, #{description}, #{address}, #{picture}, #{owner})
+    </insert>
+
+    <!-- 删除商店 -->
+    <delete id="deleteShop" parameterType="int">
+        delete
+        from shop
+        where id = #{id};
+    </delete>
+
+    <!-- 更新商店 -->
+    <update id="updateShop" parameterType="com.sd.entity.Shop">
+        update shop
+        set name = #{name},
+            description = #{description},
+            address = #{address},
+            picture = #{picture},
+            owner = #{owner}
+        where id = #{id};
+    </update>
+
+    <!-- 查询所有商店 -->
+    <select id="findAllShop" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop;
+    </select>
+</mapper>
