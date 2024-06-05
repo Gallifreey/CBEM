@@ -231,7 +231,7 @@ export type VendorOrderWaterFallColumnType =  {
     publishTime: String,
     price: Number,
     payTime: String,
-    status: Number
+    state: Number
 }
 
 export const VendorOrderWaterFallColumn: TableColumnType<VendorOrderWaterFallColumnType>[] = [
@@ -255,7 +255,7 @@ export const VendorOrderWaterFallColumn: TableColumnType<VendorOrderWaterFallCol
         width: 100
     },
     {
-        dataIndex: 'status',
+        dataIndex: 'state',
         title: '订单状态',
         align: 'center',
         width: 100

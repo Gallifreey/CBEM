@@ -42,12 +42,6 @@
               </a-row>
             </a-form>
           </a-tab-pane>
-          <a-tab-pane key="2" tab="交易流水">
-            
-          </a-tab-pane>
-          <a-tab-pane key="3" tab="资金流水">
-
-          </a-tab-pane>
         </a-tabs>
       </div>
     </template>

@@ -1,5 +1,6 @@
 import { RangeValue } from "~@/types/form"
-import { VendorOrderColumnType } from "~@/utils/columns"
+import { VendorOrderColumnType, VendorOrderBOMListColumnType } from "~@/utils/columns"
+import { UIDType } from "~@/utils/type"
 
 export interface OrderModifyParams {
     description?: string,
@@ -40,4 +41,10 @@ export function modifyOrderApi(params: OrderModifyParams){
 
 export function deleteOrderApi(parmas: OrderDeleteParams){
     return useDelete('/order/delete', parmas)
+}
+
+export function getOrderBOMData(id: UIDType){
+    return useGet<VendorOrderBOMListColumnType[]>('/order/bom', {
+        id: id
+    })
 }

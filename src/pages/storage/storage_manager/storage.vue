@@ -98,15 +98,12 @@ const formState = ref<FormState>({
 })
 const rowSelectedKeys = ref([])
 const rowSelection = useAntRowSelection<StorageManagerStorageType>(rowSelectedKeys);
-<<<<<<< HEAD
 const router = useRouter();
 const direct2add = () => {
   router.push({
     path: '/storage_manager/add_commodity'
   })
 }
-=======
->>>>>>> 851e2e6e299496df697ae60c9a2adf112398f09e
 </script>
 <style lang="less" scoped>
 

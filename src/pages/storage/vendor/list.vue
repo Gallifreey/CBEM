@@ -26,13 +26,13 @@
               <a-button @click="handleAuth">授权新的仓库</a-button>
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" html-type="submit">查询</a-button>
+              <a-button type="primary" html-type="submit" @click="queryData()">查询</a-button>
             </a-form-item>
           </a-space>
         </a-row>
       </a-form>
     </template>
-    <a-table :columns="VendorStorageColumn" :data-source="data" :row-selection="rowSelection">
+    <a-table :columns="VendorStorageColumn" :data-source="dataFrame" :row-selection="rowSelection">
       <template #bodyCell={column}>
         <template v-if="column.dataIndex === 'action'">
           <a-space>
@@ -49,6 +49,7 @@ import { RangeValue } from '~@/types/form';
 import { VendorStorageColumnType, VendorStorageColumn } from '~@/utils/columns';
 import { useAntRowSelection } from '~@/utils/tools'
 import dayjs from 'dayjs';
+import { getAuthedStorageList, queryStorage } from '~@/api/common/storage';
 
 const router = useRouter();
 interface FormState {
@@ -61,7 +62,7 @@ const formState = ref<FormState>({
   brand: "",
   authTime: [dayjs("2015/01/01"), dayjs("2015/01/01")],
 })
-const data = shallowRef<VendorStorageColumnType[]>([
+const dataFrame = shallowRef<VendorStorageColumnType[]>([
   {
     key: 1,
     name: '仓库一',
@@ -77,12 +78,24 @@ const data = shallowRef<VendorStorageColumnType[]>([
     remained: 56
   }
 ])
-const rowSelection = useAntRowSelection<VendorStorageColumnType>();
+const rowSelectonKeys = ref([])
+const rowSelection = useAntRowSelection<VendorStorageColumnType>(rowSelectonKeys);
 const handleAuth = () => {
   router.push({
     path: '/storage/vendor/auth'
   })
 }
+async function laodData(){
+  const { data } = await getAuthedStorageList(1);
+  if(data) dataFrame.value = data;
+}
+async function queryData(){
+  const { data } = await queryStorage(formState.value);
+  if(data) dataFrame.value = data;
+}
+onMounted(() => {
+  laodData();
+})
 </script>
 <style lang="less" scoped>
 

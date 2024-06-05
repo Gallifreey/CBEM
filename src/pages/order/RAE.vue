@@ -11,7 +11,7 @@
            </a-col>
            <a-col :span="8">
              <a-form-item name="state" label="状态">
-               <a-select v-model:value="formState.state"/>
+               <a-select v-model:value="formState.state" :options="options"/>
              </a-form-item>
            </a-col>
            <a-col :span="8">
@@ -22,12 +22,12 @@
          </a-row>
          <a-row>
           <a-col :span="8">
-            <a-button type="primary">查询</a-button>
+            <a-button type="primary" @click="queryData()">查询</a-button>
           </a-col>
          </a-row>
       </a-form>
     </template>
-    <a-table :columns="SalerRAEColumn" :data-source="data" :row-selection="rowSelection">
+    <a-table :columns="SalerRAEColumn" :data-source="dataFrame" :row-selection="rowSelection">
       <template #bodyCell="{record, column}">
         <template v-if="column.dataIndex === 'state'">
           <ColorfulTag :number="record.state" :text="RAE_STATUS_ARRAY[record.state]" />
@@ -45,12 +45,14 @@
 <script lang="ts" setup>
 import { SalerRAEColumn, SalerReturnAndExchangeColumnType } from '~@/utils/columns'
 import dayjs from 'dayjs';
-import { useAntRowSelection } from '~@/utils/tools';
+import { useAntRowSelection, generateObjectByArray } from '~@/utils/tools';
 import ColorfulTag from '~@/components/utils/ColorfulTag.vue';
 import { RAE_STATUS_ARRAY } from '~@/utils/constant';
 import { RangeValue } from '~@/types/form';
+import { getRAEList, queryRAE } from '~@/api/saler/order';
+import { getUID } from '~@/utils/storage';
 
-const data = ref<SalerReturnAndExchangeColumnType[]>([
+const dataFrame = ref<SalerReturnAndExchangeColumnType[]>([
   {
     orderId: "1111",
     price: 20.0,
@@ -72,6 +74,18 @@ const formState = ref<FormState>({
 })
 const rowSelectedKeys = ref([])
 const rowSelection = useAntRowSelection<SalerReturnAndExchangeColumnType>(rowSelectedKeys);
+async function loadData(){
+  const { data } = await getRAEList(getUID());
+  if(data) dataFrame.value = data;
+}
+async function queryData(){
+  const { data } = await queryRAE(formState.value);
+  if(data) dataFrame.value = data;
+}
+onMounted(() => {
+  loadData();
+})
+const options = generateObjectByArray(RAE_STATUS_ARRAY);
 </script>
 <style lang="less" scoped>
 

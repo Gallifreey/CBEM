@@ -6,3 +6,7 @@ export function getAllBrand(){
 export function getAllDeliveryState(){
     return useGet('/api/delivery_state/list');
 }
+
+export function getAllStorage(){
+    return useGet('/api/storage/list');
+}

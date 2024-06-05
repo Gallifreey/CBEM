@@ -6,3 +6,8 @@ export function getItem(key:string){
     }
     return item;
 }
+
+export function getUID(){
+    const id = window.localStorage.getItem('uid') || "-1";
+    return id;
+}

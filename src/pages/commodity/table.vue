@@ -11,12 +11,12 @@
           </a-col>
           <a-col :span="8">
             <a-form-item name="brand" label="品牌">
-              <a-input v-model:value="formState.brand"/>
+              <a-select v-model:value="formState.brand" :options="brandData"/>
             </a-form-item>
           </a-col>
           <a-col :span="8">
             <a-form-item name="deliveryState" label="递送方式">
-              <a-input v-model:value="formState.deliveryState"/>
+              <a-select v-model:value="formState.deliveryState" :options="deliveryStateData"/>
             </a-form-item>
           </a-col>
         </a-row>
@@ -42,11 +42,7 @@
         <a-row>
           <a-space>
             <a-form-item>
-<<<<<<< HEAD
               <a-button v-if="rowSelectedKeys.length>=1" :disabled="rowSelectedKeys.length === 0" danger @click="deleteDataByArray">
-=======
-              <a-button :disabled="rowSelectedKeys.length === 0">
->>>>>>> 851e2e6e299496df697ae60c9a2adf112398f09e
                 删除 - 选中 {{ rowSelectedKeys.length }} 个项目
               </a-button>
             </a-form-item>
@@ -92,6 +88,7 @@ import { useAntRowSelection } from '~@/utils/tools'
 import { RangeValue } from '~@/types/form';
 import { deleteCommodity, getCommodityListByUID, queryCommodity } from '~@/api/common/commodity';
 import { message } from 'ant-design-vue';
+import { getAllBrand, getAllDeliveryState } from '~@/api/common/utils';
 
 interface FormState {
   name: string,
@@ -140,20 +137,6 @@ const dataFrame = shallowRef<CommdityColumnType[]>([
     status: false,
   }
 ])
-onMounted(() => {
-  loadData();
-  nextTick(() => {
-    JsBarcode('.barcode', '123456', {
-      format: 'CODE39',
-      width:1,
-      height:40,
-      displayValue:true,
-      fontSize:15,
-      margin:15,
-      background: "transparent"
-    })
-  })
-})
 async function loadData(){
   const { data } = await getCommodityListByUID(1);
   if(data) dataFrame.value = data;
@@ -168,9 +151,11 @@ async function deleteDataPerRow(id: number){
   else message.success("删除成功")
 }
 async function deleteDataByArray(){
-  const { code } = await deleteCommodity(rowSelectedKeys.value);
-  if(code === 0) message.error("删除失败")
-  else message.success("删除成功")
+  if(rowSelectedKeys.value){
+    const { code } = await deleteCommodity(rowSelectedKeys.value);
+    if(code === 0) message.error("删除失败")
+    else message.success("删除成功")
+  }
 }
 const router = useRouter();
 const addNewCommodity = () => {
@@ -178,8 +163,34 @@ const addNewCommodity = () => {
     path: '/commodity/form'
   })
 }
+const brandData = ref();
+const deliveryStateData = ref();
+async function getBrandData(){
+  const { data } = await getAllBrand();
+  if(data) brandData.value = data;
+}
+async function getDeliveryStateData(){
+  const { data } = await getAllDeliveryState();
+  if(data) deliveryStateData.value = data;
+}
 const rowSelectedKeys = ref<(String[] | Number[])>([]);
 const rowSelection = useAntRowSelection<CommdityColumnType>(rowSelectedKeys);
+  onMounted(() => {
+  loadData();
+  getBrandData();
+  getDeliveryStateData();
+  nextTick(() => {
+    JsBarcode('.barcode', '123456', {
+      format: 'CODE39',
+      width:1,
+      height:40,
+      displayValue:true,
+      fontSize:15,
+      margin:15,
+      background: "transparent"
+    })
+  })
+})
 </script>
 <style lang="less" scoped>
 

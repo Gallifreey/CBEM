@@ -38,11 +38,11 @@ const rowSelection = useAntRowSelection<VendorOrderWaterFallColumnType>(rowSelec
 
 async function loadData(){
   const { data } = await getOrderWaterFallList(1)
-  dataFrame.value = data
+  if(data) dataFrame.value = data
 }
 async function queryData(){
-  const { data } = await queryOrderWaterFall(1)
-  dataFrame.value = data
+  const { data } = await queryOrderWaterFall(formState.value)
+  if(data) dataFrame.value = data
 }
 onMounted(() => {
   loadData();

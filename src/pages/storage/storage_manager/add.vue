@@ -4,7 +4,7 @@
 		<template #content>
 			<a-form :model="formState"
 			:label-col="{ span: 8 }"
-    	:wrapper-col="{ span: 10 }"
+    		:wrapper-col="{ span: 10 }"
 			>
 				<a-form-item name="name" label="仓库名称" :rules="[{ required: true, message: '请输入仓库名称' }]">
 					<a-input v-model:value="formState.name" />

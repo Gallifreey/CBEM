@@ -75,6 +75,7 @@ const handleChange = (info: UploadChangeParam) => {
   }
   if (info.file.status === 'done') {
     getBase64(info.file.originFileObj, (base64Url: string) => {
+      console.log(base64Url)
       metaE.value.picture = base64Url;
       loading.value = false;
     });

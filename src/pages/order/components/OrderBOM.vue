@@ -9,7 +9,7 @@
   </a-drawer>
 </template>
 <script lang="ts" setup>
- import { VendorOrderBOMListColumn } from '~@/utils/columns';
+import { VendorOrderBOMListColumn } from '~@/utils/columns';
 import { addIncreasedNumber } from '~@/utils/tools';
 
 const props = defineProps({
