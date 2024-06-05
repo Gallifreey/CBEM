@@ -2,12 +2,15 @@ package com.sd.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.sd.entity.Order;
+import com.sd.entity.OrderQuery;
 import com.sd.entity.PriceMeta;
 import com.sd.entity.Result;
 import com.sd.service.impl.OrderServiceImpl;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -47,6 +50,13 @@ public class OrderController {
         });
         return Result.success(orders);
     }
+    @PostMapping("/query")
+    public Result queryOrders(@RequestBody OrderQuery orderQuery) throws ParseException {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        orderQuery.setPublishtime(ft.parse(orderQuery.getPublishTime()));
+        List<Order> orders = orderService.queryOrder(orderQuery);
+        return Result.success(orders);
+    }
     @PostMapping("/")
     public Result createOrder(@RequestBody Order order){
         int insertCode = orderService.createOrder(order);
@@ -63,6 +73,12 @@ public class OrderController {
         }
         return Result.error("删除失败！");
     }
+    @DeleteMapping("/delete/{ids}")
+    public Result deleteOrders(@PathVariable List<Integer> ids){
+        orderService.deleteOrders(ids);
+        return Result.success("已删除选定订单！");
+    }
+
     @PutMapping("/")
     public Result updateOrder(@RequestBody Order order){
         int updateCode = orderService.updateOrder(order);

@@ -20,20 +20,22 @@
             <result property="accountnumber" column="accountNumber" jdbcType="VARCHAR"/>
             <result property="accountowner" column="accountOwner" jdbcType="VARCHAR"/>
             <result property="authorizedstorage" column="authorizedStorage" jdbcType="OTHER"/>
+            <result property="uid" column="uid" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,
+        id,`name`,description,
         address,phone,fox,
         email,postcode,website,
         connector,remark,accountBank,
-        accountNumber,accountOwner,authorizedStorage
+        accountNumber,accountOwner,authorizedStorage,
+        uid
     </sql>
 
     <!-- 插入新供应商 -->
     <insert id="createVendor" parameterType="com.sd.entity.Vendor">
-        insert into vendor (name, description, address, phone, fox, email, postcode, website, connector, remark, accountBank, accountNumber, accountOwner, authorizedStorage)
-        values (#{name}, #{description}, #{address}, #{phone}, #{fox}, #{email}, #{postcode}, #{website}, #{connector}, #{remark}, #{accountbank}, #{accountnumber}, #{accountowner}, #{authorizedstorage})
+        insert into vendor (name, description, address, phone, fox, email, postcode, website, connector, remark, accountBank, accountNumber, accountOwner, authorizedStorage, uid)
+        values (#{name}, #{description}, #{address}, #{phone}, #{fox}, #{email}, #{postcode}, #{website}, #{connector}, #{remark}, #{accountbank}, #{accountnumber}, #{accountowner}, #{authorizedstorage}, #{uid})
     </insert>
 
     <!-- 删除供应商 -->
@@ -59,14 +61,15 @@
             accountBank = #{accountbank},
             accountNumber = #{accountnumber},
             accountOwner = #{accountowner},
-            authorizedStorage = #{authorizedstorage}
+            authorizedStorage = #{authorizedstorage},
+            uid=#{uid}
         where id = #{id};
     </update>
 
     <!-- 查询所有供应商 -->
     <select id="findAllVendor" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
+        select *
         from vendor;
     </select>
+
 </mapper>

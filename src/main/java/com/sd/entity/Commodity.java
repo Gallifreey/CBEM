@@ -1,5 +1,8 @@
 package com.sd.entity;
 
+import java.io.Serial;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
  * @since 2024-05-22 15:00:24
  */
 public class Commodity implements Serializable {
+    @Serial
     private static final long serialVersionUID = -32185165628429318L;
 /**
      * 商品主键
@@ -38,7 +42,7 @@ public class Commodity implements Serializable {
 /**
      * 快递方式
      */
-    private Integer deliveystate;
+    private Integer deliverystate;
 /**
      * 商品单位
      */
@@ -119,6 +123,21 @@ public class Commodity implements Serializable {
      * 商品发布时间
      */
     private Date publishtime;
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) throws ParseException {
+        this.publishTime = publishTime;
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.publishtime = ft.parse(publishTime);
+    }
+
+    /**
+     * 商品发布时间String
+     */
+    private String publishTime;
 /**
      * 商品上架时间
      */
@@ -173,12 +192,12 @@ public class Commodity implements Serializable {
         this.brand = brand;
     }
 
-    public Integer getDeliveystate() {
-        return deliveystate;
+    public Integer getDeliverystate() {
+        return deliverystate;
     }
 
-    public void setDeliveystate(Integer deliveystate) {
-        this.deliveystate = deliveystate;
+    public void setDeliverystate(Integer deliverystate) {
+        this.deliverystate = deliverystate;
     }
 
     public Integer getUnit() {

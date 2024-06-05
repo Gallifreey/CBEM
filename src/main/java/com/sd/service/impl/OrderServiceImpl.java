@@ -2,6 +2,7 @@ package com.sd.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sd.entity.Order;
+import com.sd.entity.OrderQuery;
 import com.sd.service.OrderService;
 import com.sd.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     public List<Order> getAllOrder() {
         return orderMapper.findAllOrder();
     }
+    @Override
+    public void deleteOrders(List<Integer> ids){
+        orderMapper.deleteOrders(ids);
+    }
+
+    @Override
+    public List<Order> queryOrder(OrderQuery orderQuery) {
+        return orderMapper.queryOrder(orderQuery);
+    }
 
     @Override
     public List<Order> getOrdersById(int uid) {
@@ -46,4 +56,5 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     public int updateOrder(Order order) {
         return orderMapper.updateOrder(order);
     }
+
 }

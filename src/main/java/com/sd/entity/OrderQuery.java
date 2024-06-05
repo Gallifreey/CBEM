@@ -19,58 +19,34 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Order implements Serializable {
+public class OrderQuery implements Serializable {
     private static final long serialVersionUID = 396490587558426038L;
-/**
-     * 订单主键
-     */
-    private Integer id;
-/**
-     * 订单名称
-     */
-    private int key;
-    private String name;
-/**
-     * 订单描述
-     */
-    private String description;
-/**
-     * 订单发起人
-     */
+
     private Integer source;
-/**
+    /**
      * 订单接收人
      */
     private Integer target;
     /**
      * 发布时间
      */
+    private String publishTime;
     private Date publishtime;
-    /**
-     * 发布时间
-     */
-    private Date paytime;
 
-    /**
-     * 订单价格元数据
-     */
+    public String getPublishTime() {
+        return publishTime;
+    }
 
-    @JsonIgnore
-    private String pricemeta;
+    public Date getPublishtime() {
+        return publishtime;
+    }
 
-    private PriceMeta meta;
-/**
-     * 订单信息元数据
-     */
-    private String infometa;
-/**
-     * 订单基本元数据
-     */
-    private String manifestmeta;
-/**
-     * 订单状态
-     */
-    private Integer state;
+    public void setPublishtime(Date publishtime) {
+        this.publishtime = publishtime;
+    }
 
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
 }
 

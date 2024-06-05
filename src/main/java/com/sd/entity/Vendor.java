@@ -10,31 +10,44 @@ import java.io.Serializable;
  */
 public class Vendor implements Serializable {
     private static final long serialVersionUID = 368820973951571349L;
-/**
+    /**
      * 供货商主键
      */
     private Integer id;
-/**
+
+    public Integer getKey() {
+        return key;
+    }
+
+    public void setKey(Integer key) {
+        this.key = key;
+    }
+
+    /**
+     * 供前端使用的key
+     */
+    private Integer key;
+    /**
      * 供货商名称
      */
     private String name;
-/**
+    /**
      * 供货商描述
      */
     private String description;
-/**
+    /**
      * 供货商地址
      */
     private String address;
-/**
+    /**
      * 供货商电话
      */
     private String phone;
-/**
+    /**
      * 传真
      */
     private String fox;
-/**
+    /**
      * 邮件
      */
     private String email;
@@ -70,7 +83,18 @@ public class Vendor implements Serializable {
      * 授权仓库集
      */
     private String authorizedstorage;
+    /**
+     * 用户id
+     */
+    private Integer uid;
 
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
     public Integer getId() {
         return id;

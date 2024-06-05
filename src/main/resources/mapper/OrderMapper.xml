@@ -15,18 +15,19 @@
             <result property="infometa" column="infoMeta" jdbcType="OTHER"/>
             <result property="manifestmeta" column="manifestMeta" jdbcType="OTHER"/>
             <result property="state" column="state" jdbcType="SMALLINT"/>
+            <result property="paytime" column="payTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,
-        source,target,publishTime,
+        id,`name`,description,
+        `source`,target,publishTime,
         priceMeta,infoMeta,manifestMeta,
-        state
+        `state`,paytime
     </sql>
     <!-- 插入新订单 -->
     <insert id="createOrder" parameterType="com.sd.entity.Order">
-        insert into `order` (name, description, source, target, publishTime, priceMeta, infoMeta, manifestMeta, state)
-        values (#{name}, #{description}, #{source}, #{target}, #{publishtime}, #{pricemeta}, #{infometa}, #{manifestmeta}, #{state})
+        insert into `order` (name, description, source, target, publishTime, priceMeta, infoMeta, manifestMeta, state, payTime)
+        values (#{name}, #{description}, #{source}, #{target}, #{publishtime}, #{pricemeta}, #{infometa}, #{manifestmeta}, #{state}, #{paytime})
     </insert>
 
     <!-- 删除订单 -->
@@ -35,7 +36,16 @@
         from `order`
         where id = #{id};
     </delete>
-
+    <!-- 批量删除-->
+    <delete id="deleteOrders" parameterType="list">
+        delete
+        from `order`
+        where id
+        in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
     <!-- 更新订单 -->
     <update id="updateOrder" parameterType="com.sd.entity.Order">
         update `order`
@@ -47,7 +57,8 @@
             priceMeta = #{pricemeta},
             infoMeta = #{infometa},
             manifestMeta = #{manifestmeta},
-            state = #{state}
+            state = #{state},
+            payTime = #{paytime}
         where id = #{id};
     </update>
 
@@ -57,11 +68,43 @@
         <include refid="Base_Column_List"/>
         from `order`;
     </select>
-
+    <!-- 根据发起人，接收人和日期查询订单 -->
+    <select id="queryOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where source=#{source}
+        and target=#{target}
+        and publishTime=#{publishtime};
+    </select>
     <!-- 查询用户订单 -->
     <select id="findOrdersById" resultMap="BaseResultMap">
         select *
         from `order`
         where id=#{uid};
+    </select>
+    <!--    没写-->
+    <select id="getBom" resultMap="BaseResultMap">
+        select *
+        from `order`
+        where id=#{id};
+    </select>
+    <!--    没写-->
+    <select id="getUserList" resultMap="BaseResultMap">
+        select *
+        from `order`
+        where uid=#{uid};
+    </select>
+    <!--   没写 -->
+    <select id="queryByNPPPS" resultMap="BaseResultMap">
+        select *
+        <include refid="Base_Column_List"/>
+        from `order`
+        where name=#{name}
+        or price=#{price}
+        or publistTime=#{publishtime}
+        or payTime=#{paytime}
+        or status=#{status}
+        ;
     </select>
 </mapper>

@@ -18,6 +18,10 @@ public class VendorController {
     public Result getAllVendors() {
         return Result.success(vendorService.getAllVendor());
     }
+    @GetMapping("/list")
+    public Result getAllVendors(@RequestParam int uid) {
+        return Result.success(vendorService.getAllVendor());
+    }
     @PostMapping("/")
     public Result createVendor(@RequestBody Vendor vendor){
         int insertCode = vendorService.createVendor(vendor);

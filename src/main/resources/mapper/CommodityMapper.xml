@@ -36,12 +36,12 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,
+        id,`name`,description,
         salePrice,distributionPrice,brand,
         deliveyState,unit,weight,
         bomName,parentBomID,childrenBomID,
         assemblePrice,splitPrice,costFomula,
-        color,size,skuColor,
+        color,`size`,skuColor,
         skuSize,skuBarCodeMsg,skuAssociatedID,
         skuWeight,status,remaining,
         barCodeMsg,picture,publishTime,
@@ -115,4 +115,46 @@
         from commodity;
     </select>
 
+
+    <!--    根据uid查询商品-->
+    <select id="findCommodityByUid" resultMap="BaseResultMap">
+        select *
+        from commodity
+        where id
+        in
+        (
+            select commodityID
+            from vendorbank
+            where vendorID=#{uid}
+                  )
+        ;
+    </select>
+    <!--    根据一些值来查询商品-->
+    <select id="findCommodityByNBDPS" resultMap="BaseResultMap">
+        select *
+        from commodity
+        where name=#{name}
+          or brand=#{brand}
+          or deliveryState=#{deliverystate}
+          or publishTime=#{publishtime}
+          or salePrice=#{saleprice}
+        ;
+    </select>
+    <!--    批量删除-->
+    <delete id="deleteCommodities" parameterType="list">
+        delete
+        from `commodity`
+        where id
+        in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--    根据ID来查询商品-->
+    <select id="findCommodityByID" resultMap="BaseResultMap">
+        select *
+        from `commodity`
+        where id=#{id}
+        ;
+    </select>
 </mapper>

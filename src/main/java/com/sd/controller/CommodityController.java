@@ -6,7 +6,7 @@ import com.sd.service.impl.CommodityServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/commoditiy")
+@RequestMapping("api/commodity")
 public class CommodityController {
     private final CommodityServiceImpl commodityService;
 
@@ -15,7 +15,7 @@ public class CommodityController {
     }
 
     @GetMapping("/")
-    public Result getAllCommoditys() {
+    public Result getAllCommodities() {
         return Result.success(commodityService.getAllCommodity());
     }
     @PostMapping("/")

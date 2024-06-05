@@ -16,4 +16,6 @@ public interface CommodityService extends IService<Commodity> {
     int createCommodity(Commodity commodity);
     int deleteCommodity(int id);
     int updateCommodity(Commodity commodity);
+    List<Commodity> findCommodityByUid(int uid);
+    List<Commodity> findCommodityByNBDPS(Commodity commodity);
 }
