@@ -42,7 +42,11 @@
         <a-row>
           <a-space>
             <a-form-item>
+<<<<<<< HEAD
               <a-button v-if="rowSelectedKeys.length>=1" :disabled="rowSelectedKeys.length === 0" danger @click="deleteDataByArray">
+=======
+              <a-button :disabled="rowSelectedKeys.length === 0">
+>>>>>>> 851e2e6e299496df697ae60c9a2adf112398f09e
                 删除 - 选中 {{ rowSelectedKeys.length }} 个项目
               </a-button>
             </a-form-item>
