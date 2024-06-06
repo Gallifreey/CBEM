@@ -1,7 +1,7 @@
 server:
   port: 8080
-  address: 10.206.170.134
-
+  address: localhost
+# 10.206.170.134
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

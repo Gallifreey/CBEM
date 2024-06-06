@@ -6,7 +6,7 @@ import com.sd.service.impl.ConstServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/const")
+@RequestMapping("/api/const")
 public class ConstController {
     private final ConstServiceImpl constEntityService;
 

@@ -1,42 +1,22 @@
 package com.sd.entity.commodity;
 
-import java.io.Serializable;
+import com.sd.entity.Commodity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Bom implements Serializable {
     private String bomName;
     private double assemblePrice;
     private double splitPrice;
     private String costFomula;
-
-    public String getBomName() {
-        return bomName;
+    public Bom(Commodity commodity) {
+        this.bomName = commodity.getBomname();
+        this.assemblePrice = commodity.getAssembleprice();
+        this.splitPrice = commodity.getSplitprice();
+        this.costFomula = commodity.getCostfomula();
     }
 
-    public void setBomName(String bomName) {
-        this.bomName = bomName;
-    }
-
-    public double getAssemblePrice() {
-        return assemblePrice;
-    }
-
-    public void setAssemblePrice(double assemblePrice) {
-        this.assemblePrice = assemblePrice;
-    }
-
-    public double getSplitPrice() {
-        return splitPrice;
-    }
-
-    public void setSplitPrice(double splitPrice) {
-        this.splitPrice = splitPrice;
-    }
-
-    public String getCostFomula() {
-        return costFomula;
-    }
-
-    public void setCostFomula(String costFomula) {
-        this.costFomula = costFomula;
-    }
 }

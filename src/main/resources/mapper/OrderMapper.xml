@@ -81,7 +81,8 @@
     <select id="findOrdersById" resultMap="BaseResultMap">
         select *
         from `order`
-        where id=#{uid};
+        where source=#{uid}
+        or target=#{uid};
     </select>
     <!--    没写-->
     <select id="getBom" resultMap="BaseResultMap">

@@ -49,4 +49,15 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public List<Commodity> findCommodityByNBDPS(Commodity commodity){
         return commodityMapper.findCommodityByNBDPS(commodity);
     }
+
+    @Override
+    public void deleteCommodities(List<Integer> ids) {
+        commodityMapper.deleteCommodities(ids);
+    }
+
+    @Override
+    public Commodity findCommodityByID(int id) {
+        return commodityMapper.findCommodityByID(id);
+    }
+
 }

@@ -1,42 +1,21 @@
 package com.sd.entity.commodity;
 
-import java.io.Serializable;
+import com.sd.entity.Commodity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Sku implements Serializable {
     private String skuColor;
     private String skuBarCodeMsg;
-    private Integer skuAssociatedID;
-    private double skuWeight;
-
-    public String getSkuColor() {
-        return skuColor;
-    }
-
-    public void setSkuColor(String skuColor) {
-        this.skuColor = skuColor;
-    }
-
-    public String getSkuBarCodeMsg() {
-        return skuBarCodeMsg;
-    }
-
-    public void setSkuBarCodeMsg(String skuBarCodeMsg) {
-        this.skuBarCodeMsg = skuBarCodeMsg;
-    }
-
-    public Integer getSkuAssociatedID() {
-        return skuAssociatedID;
-    }
-
-    public void setSkuAssociatedID(Integer skuAssociatedID) {
-        this.skuAssociatedID = skuAssociatedID;
-    }
-
-    public double getSkuWeight() {
-        return skuWeight;
-    }
-
-    public void setSkuWeight(double skuWeight) {
-        this.skuWeight = skuWeight;
+    private String  skuAssociatedID;
+    private Double skuWeight;
+    public Sku(Commodity commodity) {
+        this.skuColor = commodity.getSkucolor();
+        this.skuBarCodeMsg = commodity.getSkubarcodemsg();
+        this.skuAssociatedID = commodity.getSkuassociatedid();
+        this.skuWeight = commodity.getSkuweight();
     }
 }

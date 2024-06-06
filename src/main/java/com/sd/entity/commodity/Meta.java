@@ -1,24 +1,18 @@
 package com.sd.entity.commodity;
 
-import java.io.Serializable;
+import com.sd.entity.Commodity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Meta implements Serializable {
     private String barCodeMsg;
     private String picture;
-
-    public String getBarCodeMsg() {
-        return barCodeMsg;
+    public Meta(Commodity commodity) {
+        this.barCodeMsg = commodity.getBarcodemsg();
+        this.picture = commodity.getPicture();
     }
 
-    public void setBarCodeMsg(String barCodeMsg) {
-        this.barCodeMsg = barCodeMsg;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 }

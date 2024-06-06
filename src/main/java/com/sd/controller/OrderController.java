@@ -37,7 +37,7 @@ public class OrderController {
         return Result.success(orders);
     }
     @GetMapping("/list")
-    public Result getOrdersById(@RequestParam int uid){
+    public Result getOrdersById(int uid){
         List<Order> orders = orderService.getOrdersById(uid);
         // 将每个订单的pricemeta字符串转换为JSON对象
         orders.forEach(order -> {
@@ -73,8 +73,8 @@ public class OrderController {
         }
         return Result.error("删除失败！");
     }
-    @DeleteMapping("/delete/{ids}")
-    public Result deleteOrders(@PathVariable List<Integer> ids){
+    @DeleteMapping("/delete")
+    public Result deleteOrders(@RequestParam List<Integer> ids){
         orderService.deleteOrders(ids);
         return Result.success("已删除选定订单！");
     }

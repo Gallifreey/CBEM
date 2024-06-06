@@ -6,7 +6,7 @@ import com.sd.service.impl.ConsttypeServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/consttype")
+@RequestMapping("/api/consttype")
 public class ConsttypeController {
     private final ConsttypeServiceImpl consttypeService;
 

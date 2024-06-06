@@ -5,8 +5,10 @@ import com.sd.entity.Result;
 import com.sd.service.impl.CommodityServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/commodity")
+@RequestMapping("/api/commodity")
 public class CommodityController {
     private final CommodityServiceImpl commodityService;
 
@@ -42,4 +44,5 @@ public class CommodityController {
         }
         return Result.error("修改失败！");
     }
+
 }
