@@ -43,4 +43,12 @@ public class CommodityController2 {
         details.setMeta(new Meta(commodity));
         return Result.success(details);
     }
+    @PutMapping("/add")
+    public Result addCommodity(@RequestBody Details details){
+        int updateCode = commodityService.addCommodity(details);
+        if(updateCode == 1){
+            return Result.success("修改成功！");
+        }
+        return Result.error("修改失败！");
+    }
 }

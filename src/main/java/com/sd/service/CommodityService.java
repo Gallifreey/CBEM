@@ -2,6 +2,7 @@ package com.sd.service;
 
 import com.sd.entity.Commodity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sd.entity.commodity.Details;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface CommodityService extends IService<Commodity> {
     List<Commodity> findCommodityByNBDPS(Commodity commodity);
     void deleteCommodities(List<Integer> ids);
     Commodity findCommodityByID(int id);
+    int addCommodity(Details details);
 }

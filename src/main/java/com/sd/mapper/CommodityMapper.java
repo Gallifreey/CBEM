@@ -2,8 +2,10 @@ package com.sd.mapper;
 
 import com.sd.entity.Commodity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sd.entity.commodity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.velocity.exception.MacroOverflowException;
 
 import java.util.List;
 
@@ -23,6 +25,10 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
     List<Commodity> findCommodityByNBDPS(Commodity commodity);
     void deleteCommodities(List<Integer> ids);
     Commodity findCommodityByID(int id);
+    int addBasicInfo(BasicInfo basicInfo);
+    int addBom(Bom bom);
+    int addMeta(Meta meta);
+    int addSku(Sku sku);
 }
 
 

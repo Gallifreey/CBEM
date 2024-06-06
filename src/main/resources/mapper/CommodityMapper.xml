@@ -66,7 +66,40 @@
                    #{barcodemsg}, #{picture}, #{publishtime}, #{onsaletime}
                )
     </insert>
-
+    <insert id="addBom" parameterType="com.sd.entity.commodity.Bom">
+        insert into commodity (
+            bomName, assemblePrice, splitPrice, costFomula
+        )
+        values (
+                   #{bomName}, #{assemblePrice}, #{splitPrice}, #{costFomula}
+               )
+    </insert>
+    <insert id="addBasicInfo" parameterType="com.sd.entity.commodity.BasicInfo">
+        insert into commodity (
+            name, description, salePrice, distributionPrice, brand,
+            deliveyState, unit, weight
+        )
+        values (
+                   #{name}, #{description}, #{saleprice}, #{distributionprice}, #{brand},
+                   #{deliveystate}, #{unit}, #{weight}
+               )
+    </insert>
+    <insert id="addMeta" parameterType="com.sd.entity.commodity.Meta">
+        insert into commodity (
+            barCodeMsg, picture
+        )
+        values (
+                   #{barCodeMsg}, #{picture}
+               )
+    </insert>
+    <insert id="addSku" parameterType="com.sd.entity.commodity.Sku">
+        insert into commodity (
+            skuColor, skuBarCodeMsg, skuAssociatedID, skuWeight
+        )
+        values (
+                   #{skuColor}, #{skuBarCodeMsg}, #{skuAssociatedID}, #{skuWeight}
+               )
+    </insert>
     <!-- 删除商品 -->
     <delete id="deleteCommodity" parameterType="int">
         delete

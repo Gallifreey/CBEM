@@ -2,6 +2,7 @@ package com.sd.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sd.entity.Commodity;
+import com.sd.entity.commodity.Details;
 import com.sd.service.CommodityService;
 import com.sd.mapper.CommodityMapper;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,15 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Override
     public Commodity findCommodityByID(int id) {
         return commodityMapper.findCommodityByID(id);
+    }
+
+    @Override
+    public int addCommodity(Details details) {
+        int a =  commodityMapper.addBasicInfo(details.getBasicInfo());
+        int b = commodityMapper.addBom(details.getBom());
+        int c = commodityMapper.addMeta(details.getMeta());
+        int d = commodityMapper.addSku(details.getSku());
+        return 1;
     }
 
 }
