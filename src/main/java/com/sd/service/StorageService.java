@@ -16,4 +16,5 @@ public interface StorageService extends IService<Storage> {
     int createStorage(Storage storage);
     int deleteStorage(int id);
     int updateStorage(Storage storage);
+    int deleteStorages(List<Integer> ids);
 }

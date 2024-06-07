@@ -11,7 +11,7 @@
             <result property="saleprice" column="salePrice" jdbcType="DECIMAL"/>
             <result property="distributionprice" column="distributionPrice" jdbcType="DECIMAL"/>
             <result property="brand" column="brand" jdbcType="SMALLINT"/>
-            <result property="deliveystate" column="deliveyState" jdbcType="SMALLINT"/>
+            <result property="deliverystate" column="deliveryState" jdbcType="SMALLINT"/>
             <result property="unit" column="unit" jdbcType="SMALLINT"/>
             <result property="weight" column="weight" jdbcType="DOUBLE"/>
             <result property="bomname" column="bomName" jdbcType="VARCHAR"/>
@@ -110,35 +110,90 @@
     <!-- 更新商品 -->
     <update id="updateCommodity" parameterType="com.sd.entity.Commodity">
         update commodity
-        set
-            name = #{name},
-            description = #{description},
-            salePrice = #{saleprice},
-            distributionPrice = #{distributionprice},
-            brand = #{brand},
-            deliveyState = #{deliveystate},
-            unit = #{unit},
-            weight = #{weight},
-            bomName = #{bomname},
-            parentBomID = #{parentbomid},
-            childrenBomID = #{childrenbomid},
-            assemblePrice = #{assembleprice},
-            splitPrice = #{splitprice},
-            costFomula = #{costfomula},
-            color = #{color},
-            size = #{size},
-            skuColor = #{skucolor},
-            skuSize = #{skusize},
-            skuBarCodeMsg = #{skubarcodemsg},
-            skuAssociatedID = #{skuassociatedid},
-            skuWeight = #{skuweight},
-            status = #{status},
-            remaining = #{remaining},
-            barCodeMsg = #{barcodemsg},
-            picture = #{picture},
-            publishTime = #{publishtime},
-            onsaleTime = #{onsaletime}
-        where id = #{id};
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="saleprice != null">
+                salePrice = #{saleprice},
+            </if>
+            <if test="distributionprice != null">
+                distributionPrice = #{distributionprice},
+            </if>
+            <if test="brand != null">
+                brand = #{brand},
+            </if>
+            <if test="deliveystate != null">
+                deliveyState = #{deliveystate},
+            </if>
+            <if test="unit != null">
+                unit = #{unit},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="bomname != null">
+                bomName = #{bomname},
+            </if>
+            <if test="parentbomid != null">
+                parentBomID = #{parentbomid},
+            </if>
+            <if test="childrenbomid != null">
+                childrenBomID = #{childrenbomid},
+            </if>
+            <if test="assembleprice != null">
+                assemblePrice = #{assembleprice},
+            </if>
+            <if test="splitprice != null">
+                splitPrice = #{splitprice},
+            </if>
+            <if test="costfomula != null">
+                costFomula = #{costfomula},
+            </if>
+            <if test="color != null">
+                color = #{color},
+            </if>
+            <if test="size != null">
+                size = #{size},
+            </if>
+            <if test="skucolor != null">
+                skuColor = #{skucolor},
+            </if>
+            <if test="skusize != null">
+                skuSize = #{skusize},
+            </if>
+            <if test="skubarcodemsg != null">
+                skuBarCodeMsg = #{skubarcodemsg},
+            </if>
+            <if test="skuassociatedid != null">
+                skuAssociatedID = #{skuassociatedid},
+            </if>
+            <if test="skuweight != null">
+                skuWeight = #{skuweight},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remaining != null">
+                remaining = #{remaining},
+            </if>
+            <if test="barcodemsg != null">
+                barCodeMsg = #{barcodemsg},
+            </if>
+            <if test="picture != null">
+                picture = #{picture},
+            </if>
+            <if test="publishtime != null">
+                publishTime = #{publishtime},
+            </if>
+            <if test="onsaletime != null">
+                onsaleTime = #{onsaletime},
+            </if>
+        </trim>
+        where id = #{id}
     </update>
 
     <!-- 查询所有商品 -->
@@ -162,11 +217,24 @@
                   )
         ;
     </select>
+
+    <select id="findCommodityBySid" resultMap="BaseResultMap">
+        select *
+        from commodity
+        where id
+                  in
+              (
+                  select commodityID
+                  from storagebank
+                  where storageID=#{id}
+              )
+        ;
+    </select>
     <!--    根据一些值来查询商品-->
     <select id="findCommodityByNBDPS" resultMap="BaseResultMap">
         select *
         from commodity
-        where name=#{name}
+        where name like concat('%', #{name}, '%')
           or brand=#{brand}
           or deliveryState=#{deliverystate}
           or publishTime=#{publishtime}

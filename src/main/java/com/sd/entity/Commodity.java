@@ -1,5 +1,7 @@
 package com.sd.entity;
 
+import com.sd.entity.commodity.*;
+
 import java.io.Serial;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -368,5 +370,32 @@ public class Commodity implements Serializable {
         this.onsaletime = onsaletime;
     }
 
+
+
+    public void setDetails(Details details){
+        BasicInfo basicInfo = details.getBasicInfo();
+        Bom bom = details.getBom();
+        Sku sku = details.getSku();
+        Meta meta = details.getMeta();
+        this.id = details.getId();
+        this.name = basicInfo.getName();
+        this.description = basicInfo.getDescription();
+        this.saleprice = basicInfo.getSalePrice();
+        this.distributionprice = basicInfo.getDistributionPrice();
+        this.brand = basicInfo.getBrand();
+        this.deliverystate = basicInfo.getDeliveryState();
+        this.unit = basicInfo.getUnit();
+        this.weight = basicInfo.getWeight();
+        this.bomname = bom.getBomName();
+        this.assembleprice = bom.getAssemblePrice();
+        this.splitprice = bom.getSplitPrice();
+        this.costfomula = bom.getCostFomula();
+        this.barcodemsg = meta.getBarCodeMsg();
+        this.picture = meta.getPicture();
+        this.skucolor = sku.getSkuColor();
+        this.skubarcodemsg = sku.getSkuBarCodeMsg();
+        this.skuassociatedid = sku.getSkuAssociatedID();
+        this.skuweight = sku.getSkuWeight();
+    }
 }
 

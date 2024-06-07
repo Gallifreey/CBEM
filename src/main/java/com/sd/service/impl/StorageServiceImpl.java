@@ -36,7 +36,10 @@ public class StorageServiceImpl extends ServiceImpl<StorageMapper, Storage>
     public int deleteStorage(int id) {
         return storageMapper.deleteStorage(id);
     }
-
+    @Override
+    public int deleteStorages(List<Integer> ids) {
+        return storageMapper.deleteStorages(ids);
+    }
     @Override
     public int updateStorage(Storage storage) {
         return storageMapper.updateStorage(storage);

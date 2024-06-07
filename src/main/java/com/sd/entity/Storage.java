@@ -34,7 +34,30 @@ public class Storage implements Serializable {
      * 仓库递送方式
      */
     private Integer deliverystate;
+    /**
+     * 库存
+     */
+    private Integer remained;
+    /**
+     * 授权
+     */
+    private Integer auth;
 
+    public Integer getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Integer auth) {
+        this.auth = auth;
+    }
+
+    public Integer getRemained() {
+        return remained;
+    }
+
+    public void setRemained(Integer remained) {
+        this.remained = remained;
+    }
 
     public Integer getId() {
         return id;

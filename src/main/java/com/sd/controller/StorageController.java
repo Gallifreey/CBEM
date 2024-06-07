@@ -5,8 +5,11 @@ import com.sd.entity.Storage;
 import com.sd.service.impl.StorageServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/api/storage")
+@RequestMapping("/api/vendor/storage")
 public class StorageController {
     private final StorageServiceImpl storageService;
 
@@ -18,6 +21,21 @@ public class StorageController {
     public Result getAllStorages() {
         return Result.success(storageService.getAllStorage());
     }
+//    @GetMapping("/list")
+//    public Result getStorageByID(@RequestParam int uid) {
+//        return Result.success(storageService.getStorageByID());
+//    }
+//    @PostMapping("/query")
+//    public Result getStorageByID(@RequestBody Storage storage) {
+//        return Result.success(storageService.());
+//    }
+    @PostMapping("/auth")
+    public Result auth(@RequestBody Map<String, Object> jsonMap){
+        Integer sid = (Integer) jsonMap.get("sid");
+        Integer bid = (Integer) jsonMap.get("bid");
+
+        return Result.success();
+    }
     @PostMapping("/")
     public Result createStorage(@RequestBody Storage storage){
         int insertCode = storageService.createStorage(storage);
@@ -26,13 +44,10 @@ public class StorageController {
         }
         return Result.error("创建失败！");
     }
-    @DeleteMapping("/{id}")
-    public Result deleteStorage(@PathVariable int id){
-        int deleteCode = storageService.deleteStorage(id);
-        if (deleteCode == 1){
-            return Result.success("删除成功！");
-        }
-        return Result.error("删除失败！");
+    @DeleteMapping("/delete")
+    public Result deleteCommodities(@RequestParam List<Integer> ids){
+        storageService.deleteStorages(ids);
+        return Result.success("已删除选定商品！");
     }
     @PutMapping("/")
     public Result updateStorage(@RequestBody Storage storage){

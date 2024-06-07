@@ -43,12 +43,22 @@ public class CommodityController2 {
         details.setMeta(new Meta(commodity));
         return Result.success(details);
     }
-    @PutMapping("/add")
+    @PostMapping("/add")
     public Result addCommodity(@RequestBody Details details){
-        int updateCode = commodityService.addCommodity(details);
+        int addCode = commodityService.addCommodity(details);
+        if(addCode == 1){
+            return Result.success("添加成功！");
+        }
+        return Result.error("添加失败！");
+    }
+    @PostMapping("/modify")
+    public Result modifyCommodity(@RequestBody Details details){
+        Commodity commodity = new Commodity();
+        commodity.setDetails(details);
+        int updateCode = commodityService.updateCommodity(commodity);
         if(updateCode == 1){
             return Result.success("修改成功！");
         }
-        return Result.error("修改失败！");
+        return Result.error("修改失败!");
     }
 }

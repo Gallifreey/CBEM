@@ -47,6 +47,10 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodityMapper.findCommodityByUid(uid);
     }
     @Override
+    public List<Commodity> findCommodityBySid(int id){
+        return commodityMapper.findCommodityBySid(id);
+    }
+    @Override
     public List<Commodity> findCommodityByNBDPS(Commodity commodity){
         return commodityMapper.findCommodityByNBDPS(commodity);
     }

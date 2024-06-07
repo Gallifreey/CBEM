@@ -22,4 +22,5 @@ public interface CommodityService extends IService<Commodity> {
     void deleteCommodities(List<Integer> ids);
     Commodity findCommodityByID(int id);
     int addCommodity(Details details);
+    List<Commodity> findCommodityBySid(int id);
 }

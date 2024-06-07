@@ -22,6 +22,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
     int deleteCommodity(int id);
     int updateCommodity(Commodity commodity);
     List<Commodity> findCommodityByUid(int uid);
+    List<Commodity> findCommodityBySid(int id);
     List<Commodity> findCommodityByNBDPS(Commodity commodity);
     void deleteCommodities(List<Integer> ids);
     Commodity findCommodityByID(int id);
