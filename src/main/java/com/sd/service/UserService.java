@@ -18,4 +18,5 @@ public interface UserService extends IService<User> {
     int deleteUser(int id);
     int updateUser(User user);
     Token checkUP(String username);
+    User getByUsername(String username);
 }

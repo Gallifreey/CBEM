@@ -19,11 +19,17 @@ public class CommodityController2 {
     @GetMapping("/list")
     public Result findCommodityByUid(@RequestParam int uid){
         List<Commodity> list = commodityService.findCommodityByUid(uid);
+        for (Commodity commodity:list) {
+            commodity.setKey(commodity.getId());
+        }
         return Result.success(list);
     }
     @PostMapping("/query")
     public Result queryCommodity(@RequestBody Commodity commodity){
         List<Commodity> list = commodityService.findCommodityByNBDPS(commodity);
+        for (Commodity commodity1:list) {
+            commodity1.setKey(commodity1.getId());
+        }
         return Result.success(list);
     }
 

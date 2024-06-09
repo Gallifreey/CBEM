@@ -47,4 +47,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public Token checkUP(String username) {
         return userMapper.checkUP(username);
     }
+    @Override
+    public User getByUsername(String username){
+        return userMapper.getByUsername(username);
+    }
 }

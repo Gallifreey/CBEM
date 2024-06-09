@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserServiceImpl userService;
 
@@ -30,6 +30,11 @@ public class UserController {
             return Result.success("创建成功！");
         }
         return Result.error("创建失败！");
+    }
+    @GetMapping("/info")
+    public Result searchUserByUsername(@RequestParam String username){
+        User user = userService.getByUsername(username);
+        return Result.success(user);
     }
     @DeleteMapping("/{id}")
     public Result deleteUser(@PathVariable int id){

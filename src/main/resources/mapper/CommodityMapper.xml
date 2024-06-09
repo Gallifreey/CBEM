@@ -38,7 +38,7 @@
     <sql id="Base_Column_List">
         id,`name`,description,
         salePrice,distributionPrice,brand,
-        deliveyState,unit,weight,
+        deliveryState,unit,weight,
         bomName,parentBomID,childrenBomID,
         assemblePrice,splitPrice,costFomula,
         color,`size`,skuColor,
@@ -51,7 +51,7 @@
     <insert id="createCommodity" parameterType="com.sd.entity.Commodity">
         insert into commodity (
             name, description, salePrice, distributionPrice, brand,
-            deliveyState, unit, weight, bomName, parentBomID,
+            deliveryState, unit, weight, bomName, parentBomID,
             childrenBomID, assemblePrice, splitPrice, costFomula,
             color, size, skuColor, skuSize, skuBarCodeMsg,
             skuAssociatedID, skuWeight, status, remaining,
@@ -59,7 +59,7 @@
         )
         values (
                    #{name}, #{description}, #{saleprice}, #{distributionprice}, #{brand},
-                   #{deliveystate}, #{unit}, #{weight}, #{bomname}, #{parentbomid},
+                   #{deliverystate}, #{unit}, #{weight}, #{bomname}, #{parentbomid},
                    #{childrenbomid}, #{assembleprice}, #{splitprice}, #{costfomula},
                    #{color}, #{size}, #{skucolor}, #{skusize}, #{skubarcodemsg},
                    #{skuassociatedid}, #{skuweight}, #{status}, #{remaining},
@@ -77,11 +77,11 @@
     <insert id="addBasicInfo" parameterType="com.sd.entity.commodity.BasicInfo">
         insert into commodity (
             name, description, salePrice, distributionPrice, brand,
-            deliveyState, unit, weight
+            deliveryState, unit, weight
         )
         values (
-                   #{name}, #{description}, #{saleprice}, #{distributionprice}, #{brand},
-                   #{deliveystate}, #{unit}, #{weight}
+                   #{name}, #{description}, #{salePrice}, #{distributionPrice}, #{brand},
+                   #{deliveryState}, #{unit}, #{weight}
                )
     </insert>
     <insert id="addMeta" parameterType="com.sd.entity.commodity.Meta">
@@ -126,8 +126,8 @@
             <if test="brand != null">
                 brand = #{brand},
             </if>
-            <if test="deliveystate != null">
-                deliveyState = #{deliveystate},
+            <if test="deliverystate != null">
+                deliveryState = #{deliverystate},
             </if>
             <if test="unit != null">
                 unit = #{unit},

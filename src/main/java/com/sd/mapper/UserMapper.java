@@ -14,4 +14,5 @@ public interface UserMapper extends BaseMapper<User> {
     int deleteUser(int id);
     int updateUser(User user);
     Token checkUP(String username);
+    User getByUsername(String username);
 }

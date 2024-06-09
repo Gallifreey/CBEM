@@ -19,7 +19,9 @@ public class BasicInfo implements Serializable {
         this.unit = commodity.getUnit();
         this.weight = commodity.getWeight();
     }
-
+    public BasicInfo() {
+        // 可选:在这里初始化字段
+    }
     private String name;
     private String description;
     private double salePrice;
