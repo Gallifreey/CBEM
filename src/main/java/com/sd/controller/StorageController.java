@@ -17,10 +17,6 @@ public class StorageController {
         this.storageService = storageService;
     }
 
-    @GetMapping("/")
-    public Result getAllStorages() {
-        return Result.success(storageService.getAllStorage());
-    }
 //    @GetMapping("/list")
 //    public Result getStorageByID(@RequestParam int uid) {
 //        return Result.success(storageService.getStorageByID());

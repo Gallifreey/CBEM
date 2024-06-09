@@ -13,17 +13,18 @@
             <result property="deliverystate" column="deliveryState" jdbcType="SMALLINT"/>
             <result property="remained" column="remained" jdbcType="INTEGER"/>
             <result property="auth" column="auth" jdbcType="INTEGER"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="authTime" column="authTime" jdbcType="DATE"/>
     </resultMap>
-
     <sql id="Base_Column_List">
         id,name,description,
         address,type,deliveryState,
-        remained,auth
+        remained,auth,picture,authTime
     </sql>
     <!-- 插入新仓库 -->
     <insert id="createStorage" parameterType="com.sd.entity.Storage">
-        insert into storage (name, description, address, type, deliveryState,remained)
-        values (#{name}, #{description}, #{address}, #{type}, #{deliverystate}, #{remained})
+        insert into storage (name, description, address, type, deliveryState,remained,picture)
+        values (#{name}, #{description}, #{address}, #{type}, #{deliverystate}, #{remained}, #{picture})
     </insert>
 
     <!-- 删除仓库 -->
@@ -41,15 +42,22 @@
             address = #{address},
             type = #{type},
             deliveryState = #{deliverystate},
-            remained = #{remained}
+            remained = #{remained},
+            picture = #{picture}
         where id = #{id};
     </update>
 
     <!-- 查询所有仓库 -->
-    <select id="findAllStorage" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from storage;
+    <select id="findStorageById" resultMap="BaseResultMap">
+        select name,address,authTime,id
+        from storage
+        where id
+        in (
+            select storageID
+            from storagemanager
+            where uid = #{id}
+                  )
+        ;
     </select>
 
     <delete id="deleteStorages" parameterType="list">
@@ -61,4 +69,34 @@
             #{id}
         </foreach>
     </delete>
+
+    <update id="addAuth" parameterType="int">
+        update `storage`
+        set auth = 1
+        where id=#{id};
+    </update>
+
+    <update id="cancelAuth" parameterType="int">
+        update `storage`
+        set auth = 0
+        where id=#{id};
+    </update>
+    <select id="listStorage" parameterType="int" resultMap="BaseResultMap">
+        select id, name, authTime,picture
+        from `storage`
+        where id=#{id}
+    </select>
+    <select id="queryStorage" resultMap="BaseResultMap">
+        select id, name, authTime,picture
+        from `storage`
+        where name like CONCAT('%', #{name}, '%')
+        or authTime between #{belowTime} AND #{topTime}
+    </select>
+    <select id="searchStorage" resultMap="BaseResultMap">
+        select id, name, authTime,address
+        from `storage`
+        where name like CONCAT('%', #{name}, '%')
+           or address like CONCAT('%', #{address}, '%')
+           or authTime between #{belowTime} AND #{topTime}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.sd.service;
 
 import com.sd.entity.Storage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sd.entity.storage.QueryStorage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,14 @@ import java.util.List;
  */
 @Service
 public interface StorageService extends IService<Storage> {
-    List<Storage> getAllStorage();
+    List<Storage> getStorageById(int id);
     int createStorage(Storage storage);
     int deleteStorage(int id);
     int updateStorage(Storage storage);
     int deleteStorages(List<Integer> ids);
+    int authStorage(int id);
+    int cancelAuth(int id);
+    Storage listStorage(int id);
+    List<Storage> queryStorage(QueryStorage queryStorage);
+    List<Storage> searchStorage(QueryStorage queryStorage);
 }

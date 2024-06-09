@@ -74,4 +74,5 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return 1;
     }
 
+
 }

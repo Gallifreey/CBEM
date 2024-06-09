@@ -30,6 +30,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
     int addBom(Bom bom);
     int addMeta(Meta meta);
     int addSku(Sku sku);
+    int updateAuth(int id);
 }
 
 

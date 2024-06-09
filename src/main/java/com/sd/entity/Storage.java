@@ -1,6 +1,12 @@
 package com.sd.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import org.apache.commons.net.ntp.TimeStamp;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * (Storage)实体类
@@ -42,6 +48,25 @@ public class Storage implements Serializable {
      * 授权
      */
     private Integer auth;
+    private String picture;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime authTime;
+
+    public LocalDateTime getAuthTime() {
+        return authTime;
+    }
+
+    public void setAuthTime(LocalDateTime authTime) {
+        this.authTime = authTime;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public Integer getAuth() {
         return auth;
